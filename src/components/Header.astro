@@ -1,0 +1,108 @@
+---
+import Button from './Button.astro';
+---
+
+<header
+  class="flex items-center justify-between mb-5 px-4 py-3 sm:px-10 sm:py-5 md:py-6 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white"
+>
+  <a href="/" class="logo shrink-0">
+    <img
+      class="h-12 md:h-16"
+      src="/src/assets/rctlogo_mobile.png"
+      alt="RC Technology"
+    />
+  </a>
+
+  <!-- Desktop Nav -->
+  <nav class="hidden md:flex gap-6 lg:gap-8">
+    <a href="" class="hover:text-blue-400 transition">Inicio</a>
+    <a href="" class="hover:text-blue-400 transition">Acerca de</a>
+    <a href="" class="hover:text-blue-400 transition">Contacto</a>
+    <a href="" class="hover:text-blue-400 transition">Plataforma</a>
+  </nav>
+
+  <div class="flex gap-4 items-center">
+    <!-- CTA Form -->
+    <Button
+      id="redbeatbutton"
+      class="border border-red-700 px-5 py-3 rounded-2xl hidden md:block"
+      text="REDBEAT"
+    />
+    <Button class="bg-red-700 px-5 py-3 rounded-2xl" text="Contactanos" />
+
+    <!-- Mobile Menu Button -->
+    <button
+      class="md:hidden relative w-8 h-8 flex flex-col justify-around"
+      id="menu-btn"
+      aria-label="Menú"
+    >
+      <span class="block w-full h-0.5 bg-white transition-all duration-300"
+      ></span>
+      <span class="block w-full h-0.5 bg-white transition-all duration-300"
+      ></span>
+      <span class="block w-full h-0.5 bg-white transition-all duration-300"
+      ></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav
+  id="mobile-menu"
+  class="md:hidden hidden bg-gray-800 text-white max-h-0 overflow-hidden transition-all duration-300"
+>
+  <a href="" class="block px-4 py-3 hover:bg-gray-700 transition">Inicio</a>
+  <a href="" class="block px-4 py-3 hover:bg-gray-700 transition">Acerca de</a>
+  <a href="" class="block px-4 py-3 hover:bg-gray-700 transition">Contacto</a>
+  <a href="" class="block px-4 py-3 hover:bg-gray-700 transition">Plataforma</a>
+</nav>
+
+<style>
+  .logo img {
+    transition: opacity 0.3s;
+  }
+
+  .logo:hover img {
+    opacity: 0.8;
+  }
+
+  #menu-btn span {
+    transform-origin: center;
+  }
+
+  #menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+  }
+
+  #menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  #menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  #mobile-menu.open {
+    max-height: 200px;
+  }
+</style>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Cerrar menu al clickear un link
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menuBtn.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  }
+</script>
