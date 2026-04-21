@@ -1,16 +1,32 @@
 ---
-import Card from '../components/Card.astro';
 import Layout from '../layouts/Layout.astro';
+import CardOptimized from '../components/CardOptimized.astro';
+import appImg from '../assets/cards/app.png';
+import gadgets from '../assets/cards/gadgets.png';
+import dashboard from '../assets/cards/dashboard.png';
+
 const data = [
   {
+    imageUrl: appImg,
     title: 'App y plataforma',
     description:
       'En el mundo de la atención médica actual, la precisión es esencial para brindar el mejor cuidado a nuestros pacientes. Con la ayuda de la inteligencia artificial y la innovación en dispositivos de última generación, estamos liderando el camino hacia una atención cardiológica más avanzada y personalizada que nunca.',
   },
   {
+    imageUrl: gadgets,
     title: 'Nuestra Tecnología de Vanguardia',
     description:
       'Utilizamos dispositivos propios diseñados específicamente para medir su salud cardiovascular de manera precisa y continua. Estos dispositivos incluyen ECGs, holters, parches, implantables y wearables. Nuestra tecnología no solo registra los datos, sino que también utiliza algoritmos de inteligencia artificial de última generación para analizarlos de manera rápida y eficiente.',
+  },
+  {
+    imageUrl: dashboard,
+    title: 'Ventajas de nuestra plataforma',
+    description: [
+      'Precisión Inigualable: Nuestra IA es capaz de detectar incluso las irregularidades más sutiles en su ritmo cardíaco, lo que nos permite intervenir antes de que los problemas empeoren.',
+      'Personalización: Su salud es única, y su tratamiento debe serlo también. Nuestra plataforma adapta las recomendaciones y el seguimiento a sus necesidades específicas.',
+      'Acceso en Tiempo Real: Los datos de su corazón están disponibles para usted y su equipo médico en tiempo real, lo que permite una toma de decisiones más rápida y efectiva.',
+      'Comodidad: Nuestros dispositivos son cómodos y fáciles de usar, lo que facilita el monitoreo constante de su salud cardiovascular.',
+    ],
   },
 ];
 ---
@@ -22,7 +38,16 @@ const data = [
   <h2 class="text-l md:text-xl lg:text-2xl text-center px-5 mb-5">
     Llevar el poder de la inteligencia artificial a la atención cardiaca
   </h2>
-  <div class="flex flex-col md:flex-row">
-    {data.map((d) => <Card title={d.title} description={d.description} />)}
+  <div class="flex flex-col justify-center md:flex-row px-2 sm:px-4">
+    {
+      data.map((d) => (
+        <CardOptimized
+          imageUrl={d.imageUrl}
+          title={d.title}
+          description={d.description}
+          class="mx-0"
+        />
+      ))
+    }
   </div>
 </Layout>

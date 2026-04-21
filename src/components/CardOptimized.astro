@@ -1,0 +1,64 @@
+---
+import { Picture } from 'astro:assets';
+import lineClamp from '@tailwindcss/line-clamp';
+
+interface Props {
+  imageUrl: any;
+  title: string;
+  description: string | string[];
+  class?: string;
+}
+
+const { imageUrl, title, description, class: className = '' } = Astro.props;
+---
+
+<div
+  class={`my-4 mx-2 w-full max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md xl:max-w-md h-full flex flex-col rounded-lg border border-gray-700 bg-gray-900/50 backdrop-blur-sm transition-all duration-300 hover:border-gray-600 hover:bg-gray-900/80 hover:shadow-lg hover:shadow-red-500/10 ${className}`}
+>
+  {
+    imageUrl && (
+      <Picture
+        src={imageUrl}
+        alt={title}
+        width={480}
+        height={270}
+        formats={['webp', 'png']}
+        class="mb-4 rounded-t-lg w-full object-cover"
+      />
+    )
+  }
+  <div class="flex-1 flex flex-col p-4 sm:p-6">
+    <h3
+      class="mb-2 text-xl font-bold text-white group-hover:text-red-500 transition"
+    >
+      {title}
+    </h3>
+
+    {
+      Array.isArray(description) ? (
+        <ul class="list-disc pl-5 text-gray-400 text-sm leading-relaxed line-clamp-4">
+          {description.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-gray-400 text-sm leading-relaxed line-clamp-4">
+          {description}
+        </p>
+      )
+    }
+    <span class="text-center py-4 px-2 block text-xs text-red-400 mt-2"
+      >Leer más...</span
+    >
+    <div
+      class="mt-auto flex items-center gap-2 text-red-500 opacity-0 group-hover:opacity-100 transition"
+    >
+    </div>
+  </div>
+</div>
+
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>
