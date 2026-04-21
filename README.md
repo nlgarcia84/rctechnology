@@ -1,3 +1,98 @@
+# RC Technology
+
+Detección y medicina de precisión con IA para cardiología
+
+---
+
+## 🖼️ Imágenes del Proyecto
+
+<div align="center">
+  <img src="src/assets/cards/app.png" alt="App y Plataforma" width="180"/>
+  <img src="src/assets/cards/gadgets.png" alt="Gadgets" width="180"/>
+  <img src="src/assets/cards/dashboard.png" alt="Dashboard" width="180"/>
+</div>
+
+---
+
+## 🚀 Stacks y Tecnologías
+
+- **Astro** (v6)
+- **Tailwind CSS** (v3)
+- **PostCSS** & **Autoprefixer**
+- **@tailwindcss/line-clamp** (para truncar texto)
+- **astro:assets** (optimización de imágenes)
+- **Google Fonts** (Rajdhani)
+
+---
+
+## 📦 Estructura del Proyecto
+
+```
+src/
+  assets/
+    cards/           # Imágenes de las cards
+      app.png
+      gadgets.png
+      dashboard.png
+    rctlogo.png      # Logo principal
+    rctlogo_mobile.png
+  components/
+    CardOptimized.astro
+    Header.astro
+    Footer.astro
+    Button.astro
+  layouts/
+    Layout.astro
+  pages/
+    index.astro
+  styles/
+    global.css       # Estilos globales con Tailwind
+astro.config.mjs
+tailwind.config.js
+```
+
+---
+
+## 🛠️ Instalación y Uso
+
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/tu-usuario/rctechnology.git
+   cd rctechnology
+   ```
+2. **Instala dependencias:**
+   ```bash
+   npm install
+   ```
+3. **Inicia el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+4. **Abre en tu navegador:**
+   http://localhost:4321
+
+---
+
+## ✨ Características
+
+- Cards responsivas con imágenes optimizadas y truncado de texto.
+- Modo oscuro por defecto.
+- Layout profesional y consistente en todos los dispositivos.
+- Optimización de imágenes con `astro:assets`.
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT.
+
+---
+
+## 🤝 Contacto
+
+¿Tienes dudas o sugerencias?
+Contáctanos en [info@rctechnology.com](mailto:info@rctechnology.com)
+
 # 🫀 RC TECHNOLOGY
 
 **Detección y medicina de precisión con IA para cardiología**
