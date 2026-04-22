@@ -4,6 +4,7 @@ import CardOptimized from '../components/CardOptimized.astro';
 import appImg from '../assets/cards/app.png';
 import gadgets from '../assets/cards/gadgets.png';
 import dashboard from '../assets/cards/dashboard.png';
+import ContactForm from '../components/ContactForm.astro';
 
 const data = [
   {
@@ -38,7 +39,9 @@ const data = [
   <h2 class="text-l md:text-xl lg:text-2xl text-center px-5 mb-5">
     Llevar el poder de la inteligencia artificial a la atención cardiaca
   </h2>
-  <div class="flex flex-col justify-center md:flex-row px-2 sm:px-4">
+  <div
+    class="flex flex-col gap-6 items-center md:flex-row md:items-stretch md:justify-center md:gap-8 px-2 sm:px-4"
+  >
     {
       data.map((d) => (
         <CardOptimized
@@ -50,4 +53,17 @@ const data = [
       ))
     }
   </div>
+  <div class="mb-8">
+    <h2 class="text-3xl md:text-4xl lg:text-5xl text-center mb-5">
+      Sobre Nosotros
+    </h2>
+    <h3>
+      En RC Technology, estamos comprometidos a brindarle el más alto nivel de
+      atención cardiológica posible. Ya sea que esté buscando una evaluación
+      preventiva o un tratamiento específico, nuestra plataforma de Detección y
+      Medicina de Precisión con IA para Cardiología está diseñada para
+      satisfacer sus necesidades de manera efectiva.
+    </h3>
+  </div>
+  <ContactForm />
 </Layout>

@@ -1,0 +1,59 @@
+---
+
+---
+
+<form
+  action="submit"
+  class="bg-gray-900/50 rounded-xl shadow-md p-8 max-w-lg mx-auto flex flex-col gap-7 border-2 border-gray-700"
+>
+  <div class="flex flex-col gap-1.5">
+    <label for="name" class="text-base font-semibold">Nombre</label>
+    <input
+      type="text"
+      name="name"
+      id="name"
+      class="border border-[#e5e7eb] rounded-lg px-4 py-2.5 bg-white focus:outline-none focus:border-red-500 transition placeholder:text-neutral-400"
+      placeholder="Tu nombre"
+    />
+  </div>
+
+  <div class="flex flex-col gap-1.5">
+    <label for="surname" class="text-base font-semibold">Apellido</label>
+    <input
+      type="text"
+      name="surname"
+      id="surname"
+      class="border border-[#e5e7eb] rounded-lg px-4 py-2.5 bg-white focus:outline-none focus:border-red-500 transition placeholder:text-neutral-400"
+      placeholder="Tu apellido"
+    />
+  </div>
+
+  <div class="flex flex-col gap-1.5">
+    <label for="email" class="text-base font-semibold">Correo Electrónico</label
+    >
+    <input
+      type="email"
+      name="email"
+      id="email"
+      class="border border-[#e5e7eb] rounded-lg px-4 py-2.5 bg-white focus:outline-none focus:border-red-500 transition placeholder:text-neutral-400"
+      placeholder="tucorreo@ejemplo.com"
+    />
+  </div>
+
+  <div class="flex flex-col gap-1.5">
+    <label for="message" class="text-base font-semibold">Mensaje</label>
+    <textarea
+      name="message"
+      id="message"
+      rows="4"
+      class="border border-[#e5e7eb] rounded-lg px-4 py-2.5 bg-white focus:outline-none focus:border-red-500 transition resize-none placeholder:text-neutral-400"
+      placeholder="¿En qué podemos ayudarte?"></textarea>
+  </div>
+
+  <button
+    type="submit"
+    class="bg-red-700 text-white rounded-lg px-6 py-2.5 font-semibold hover:bg-red-600 transition"
+  >
+    Enviar
+  </button>
+</form>
