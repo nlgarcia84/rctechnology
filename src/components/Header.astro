@@ -34,18 +34,24 @@ import logoMobile from '../assets/rctlogo_mobile.png';
   <nav class="hidden md:flex gap-6 lg:gap-8">
     <a href="#" class="hover:text-blue-400 transition">Inicio</a>
     <a href="#" class="hover:text-blue-400 transition">Acerca de</a>
-    <a href="#" class="hover:text-blue-400 transition">Contacto</a>
-    <a href="#" class="hover:text-blue-400 transition">Plataforma</a>
+    <a href="#form" class="hover:text-blue-400 transition">Contacto</a>
   </nav>
 
   <div class="flex gap-4 items-center">
     <!-- Botones -->
     <Button
+      as="a"
+      href="http://54.37.38.27/"
       id="redbeatbutton"
       class="border border-red-700 px-5 py-3 rounded-2xl hidden md:block"
       text="REDBEAT"
     />
-    <Button class="bg-red-700 px-5 py-3 rounded-2xl" text="Contactanos" />
+    <Button
+      as="a"
+      href="#form"
+      class="bg-red-700 px-5 py-3 rounded-2xl"
+      text="Contactanos"
+    />
 
     <!-- Botón menú móvil -->
     <button
@@ -71,8 +77,14 @@ import logoMobile from '../assets/rctlogo_mobile.png';
   <!-- enlaces aquí -->
   <a href="#" class="block px-6 py-4 hover:bg-gray-700">Inicio</a>
   <a href="#" class="block px-6 py-4 hover:bg-gray-700">Acerca de</a>
-  <a href="#" class="block px-6 py-4 hover:bg-gray-700">Contacto</a>
-  <a href="#" class="block px-6 py-4 hover:bg-gray-700">Plataforma</a>
+  <a
+    href="http://54.37.38.27/"
+    class="block px-6 py-4 hover:bg-gray-700"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Plataforma
+  </a>
   <nav
     id="mobile-menu"
     class="md:hidden fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white/20 backdrop-blur-lg rounded-xl border border-white/30 text-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg"

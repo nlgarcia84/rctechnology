@@ -1,12 +1,28 @@
 ---
 interface Props {
+  as?: string;
+  href?: string;
   text: string;
   id?: string;
   class?: string;
 }
-const { text, class: className } = Astro.props;
+const { as = 'button', href = '', text, id, class: className } = Astro.props;
 ---
 
-<button class={`btn ${className}`}>
-  {text}
-</button>
+{
+  as === 'a' ? (
+    <a
+      href={href}
+      id={id}
+      class={`btn ${className}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {text}
+    </a>
+  ) : (
+    <button id={id} class={`btn ${className}`}>
+      {text}
+    </button>
+  )
+}
