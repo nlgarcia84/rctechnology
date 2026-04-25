@@ -4,7 +4,9 @@ import CardOptimized from '../components/CardOptimized.astro';
 import appImg from '../assets/cards/app.png';
 import gadgets from '../assets/cards/gadgets.png';
 import dashboard from '../assets/cards/dashboard.png';
+import { actions } from 'astro:actions';
 import ContactForm from '../components/ContactForm.astro';
+import { supabase } from '../lib/supabaseClient';
 
 const data = [
   {
@@ -30,6 +32,25 @@ const data = [
     ],
   },
 ];
+
+export async function formAction({ request }: any) {
+  const formData = await request.formData();
+  const name = String(formData.get('name') ?? '').trim();
+  const surname = String(formData.get('surname') ?? '').trim();
+  const email = String(formData.get('email') ?? '').trim();
+  const message = String(formData.get('message') ?? '').trim();
+
+  if (!name || !surname || !email || !message) {
+    return { error: 'Todos los campos son obligatorios.' };
+  }
+
+  const { error } = await supabase
+    .from('contact_messages')
+    .insert([{ name, surname, email, message }]);
+  if (error) return { error: 'Error al guardar el mensaje.' };
+
+  return { success: true };
+}
 ---
 
 <Layout>
@@ -67,5 +88,5 @@ const data = [
       </span>
     </div>
   </div>
-  <ContactForm client:load />
+  <ContactForm action={actions.contact} />
 </Layout>

@@ -9,12 +9,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "latest"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.104.1",
     "@tailwindcss/line-clamp": "^0.4.4",
-    "astro": "^6.1.7"
+    "astro": "5.18.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.5.0",

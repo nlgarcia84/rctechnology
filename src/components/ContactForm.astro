@@ -1,128 +1,65 @@
 ---
-
+// filepath: /src/components/ContactForm.astro
 ---
 
-<script lang="ts">
-  window.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('form');
-    if (!form) return;
+--- ---
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // Limpia mensajes de error previos
-      document.getElementById('name-error').innerText = '';
-      document.getElementById('surname-error').innerText = '';
-      document.getElementById('mail-error').innerText = '';
-      document.getElementById('text-error').innerText = '';
-
-      // Obtén los valores
-      const name = form.querySelector('[name="name"]')?.value.trim() || '';
-      const surname =
-        form.querySelector('[name="surname"]')?.value.trim() || '';
-      const email = form.querySelector('[name="email"]')?.value.trim() || '';
-      const message =
-        form.querySelector('[name="message"]')?.value.trim() || '';
-
-      // Validaciones avanzadas
-      if (name.length < 2) {
-        document.getElementById('name-error').innerText =
-          'El nombre debe de tener mínimo 2 carácteres';
-        return;
-      }
-      if (surname.length < 2) {
-        document.getElementById('surname-error').innerText =
-          'El apellido debe tener al menos 2 caracteres.';
-        return;
-      }
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        document.getElementById('mail-error').innerText =
-          'El correo electrónico es incorrecto';
-        return;
-      }
-      if (message.length < 10) {
-        document.getElementById('text-error').innerText =
-          'El texto es obligatorio y debe tener al menos 10 caracteres.';
-        return;
-      }
-
-      // Si pasa validación, envía los datos al backend
-      const formData = new FormData(form);
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        alert('Mensaje enviado correctamente.');
-        form.reset();
-      } else {
-        alert('Hubo un error al enviar el mensaje.');
-      }
-    });
-  });
-</script>
 <form
+  method="post"
+  action="/api/contact"
   id="form"
-  action="submit"
   class="bg-gray-900/50 rounded-xl shadow-md p-8 max-w-lg mx-auto flex flex-col gap-7 border-2 border-gray-700"
 >
   <div class="flex flex-col gap-1.5">
-    <label for="name" class="text-base font-semibold">Nombre</label>
+    <label for="name" class="text-white">Nom</label>
     <input
       required
       type="text"
       name="name"
       id="name"
-      class="border border-[#e5e7eb] rounded-lg px-4 py-2.5 bg-white focus:outline-none focus:border-red-500 transition placeholder:text-neutral-400"
-      placeholder="Tu nombre"
+      class="border border-gray-700 rounded-lg px-4 py-2.5 bg-gray-900 text-white"
+      placeholder="El teu nom"
+      autocomplete="off"
     />
-    <span id="name-error" class="text-red-600 text-sm mt-1"></span>
   </div>
-
   <div class="flex flex-col gap-1.5">
-    <label for="surname" class="text-base font-semibold">Apellido</label>
+    <label for="surname" class="text-white">Cognom</label>
     <input
       required
       type="text"
       name="surname"
       id="surname"
-      class="border border-[#e5e7eb] rounded-lg px-4 py-2.5 bg-white focus:outline-none focus:border-red-500 transition placeholder:text-neutral-400"
-      placeholder="Tu apellido"
+      class="border border-gray-700 rounded-lg px-4 py-2.5 bg-gray-900 text-white"
+      placeholder="El teu cognom"
+      autocomplete="off"
     />
-    <span id="surname-error" class="text-red-600 text-sm mt-1"></span>
   </div>
-
   <div class="flex flex-col gap-1.5">
-    <label for="email" class="text-base font-semibold">Correo Electrónico</label
-    >
+    <label for="email" class="text-white">Correu electrònic</label>
     <input
       required
       type="email"
       name="email"
       id="email"
-      class="border border-[#e5e7eb] rounded-lg px-4 py-2.5 bg-white focus:outline-none focus:border-red-500 transition placeholder:text-neutral-400"
-      placeholder="tucorreo@ejemplo.com"
+      class="border border-gray-700 rounded-lg px-4 py-2.5 bg-gray-900 text-white"
+      placeholder="correu@exemple.com"
+      autocomplete="off"
     />
-    <span id="mail-error" class="text-red-600 text-sm mt-1"></span>
   </div>
-
   <div class="flex flex-col gap-1.5">
-    <label for="message" class="text-base font-semibold">Mensaje</label>
+    <label for="message" class="text-white">Missatge</label>
     <textarea
       required
       name="message"
       id="message"
       rows="4"
-      class="border border-[#e5e7eb] rounded-lg px-4 py-2.5 bg-white focus:outline-none focus:border-red-500 transition resize-none placeholder:text-neutral-400"
-      placeholder="¿En qué podemos ayudarte?"></textarea>
-    <span id="text-error" class="text-red-600 text-sm mt-1"></span>
+      class="border border-gray-700 rounded-lg px-4 py-2.5 bg-gray-900 text-white"
+      placeholder="En què et podem ajudar?"
+      autocomplete="off"></textarea>
   </div>
-
   <button
     type="submit"
-    class="bg-red-700 text-white rounded-lg px-6 py-2.5 font-semibold hover:bg-red-600 transition"
+    class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-lg transition"
+    >Enviar</button
   >
-    Enviar
-  </button>
 </form>

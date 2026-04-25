@@ -1,4 +1,5 @@
-// Este será el único archivo donde inicializaremos el cliente de Supabase usando las variables de entorno
+// Este será el único archivo donde inicializaremos
+// el cliente de Supabase usando las variables de entorno
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.SUPABASE_URL;
