@@ -1,12 +1,10 @@
 ---
-// filepath: /src/components/ContactForm.astro
+import { actions } from 'astro:actions';
 ---
 
---- ---
-
 <form
-  method="post"
-  action="/api/contact"
+  method="POST"
+  action={actions.enviarContacto}
   id="form"
   class="bg-gray-900/50 rounded-xl shadow-md p-8 max-w-lg mx-auto flex flex-col gap-7 border-2 border-gray-700"
 >
