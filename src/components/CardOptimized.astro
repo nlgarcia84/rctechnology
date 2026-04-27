@@ -1,6 +1,6 @@
 ---
 import { Picture } from 'astro:assets';
-import lineClamp from '@tailwindcss/line-clamp';
+import Button from './Button.astro';
 
 interface Props {
   imageUrl: any;
@@ -13,7 +13,7 @@ const { imageUrl, title, description, class: className = '' } = Astro.props;
 ---
 
 <div
-  class={`mt-4 mx-auto w-full max-w-[95vw] sm:max-w-[400px] md:max-w-[350px] lg:max-w-[380px] xl:max-w-md h-[400px] sm:h-[450px] flex flex-col rounded-lg border border-gray-700 bg-gray-900/50 backdrop-blur-sm transition-all duration-300 hover:border-gray-600 hover:bg-gray-900/80 hover:shadow-lg hover:shadow-red-500/10 ${className}`}
+  class={`mt-4 mx-auto w-full max-w-[95vw] sm:max-w-[400px] md:max-w-[350px] lg:max-w-[380px] xl:max-w-md h-[420px] sm:h-[450px] flex flex-col rounded-lg border border-gray-700 bg-gray-900/50 backdrop-blur-sm transition-all duration-300 hover:border-gray-600 hover:bg-gray-900/80 hover:shadow-lg hover:shadow-red-500/10 ${className}`}
 >
   {
     imageUrl && (
@@ -50,18 +50,17 @@ const { imageUrl, title, description, class: className = '' } = Astro.props;
       }
     </div>
 
-    <span class="text-center px-2 block text-xs text-red-400 mb-5"
-      >Leer más...</span
-    >
-    <div
-      class="mt-auto flex items-center gap-2 text-red-500 opacity-0 group-hover:opacity-100 transition"
-    >
-    </div>
+    <Button
+      as="a"
+      href="#"
+      text="Leer más"
+      class="text-white border-red-700 bg-red-700 border rounded-xl px-4 py-2 ml-auto mr-auto"
+    />
   </div>
-</div>
 
-<style>
-  a {
-    text-decoration: none;
-  }
-</style>
+  <style>
+    a {
+      text-decoration: none;
+    }
+  </style>
+</div>
