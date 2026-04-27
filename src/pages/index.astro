@@ -4,7 +4,6 @@ import CardOptimized from '../components/CardOptimized.astro';
 import appImg from '../assets/cards/app.png';
 import gadgets from '../assets/cards/gadgets.png';
 import dashboard from '../assets/cards/dashboard.png';
-import { actions } from 'astro:actions';
 import ContactForm from '../components/ContactForm.astro';
 import { supabase } from '../lib/supabaseClient';
 
@@ -51,6 +50,10 @@ export async function formAction({ request }: any) {
 
   return { success: true };
 }
+
+export const actions = {
+  contact: formAction,
+};
 ---
 
 <Layout>

@@ -15,7 +15,7 @@
     "@astrojs/vercel": "^10.0.5",
     "@supabase/supabase-js": "^2.104.1",
     "@tailwindcss/line-clamp": "^0.4.4",
-    "astro": "5.18.1"
+    "astro": "^6.1.9"
   },
   "devDependencies": {
     "autoprefixer": "^10.5.0",
