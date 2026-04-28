@@ -1,10 +1,13 @@
 ---
 import { Image } from 'astro:assets';
+import logoAccio from '../assets/sponsors/logo_accio.avif';
+import logoCdti from '../assets/sponsors/logo_cdti.avif';
+import logoEnisa from '../assets/sponsors/logo_enisa.avif';
 ---
 
 <div class="flex flex-row justify-center gap-2 mb-2">
   <Image
-    src="/src/assets/sponsors/logo_accio.avif"
+    src={logoAccio}
     alt="Logo Accio"
     class="filter brightness-75 sepia-[0.5] hue-rotate-[190deg] contrast-[1.2] hover:brightness-100 transition duration-300 object-contain"
     format="avif"
@@ -13,7 +16,7 @@ import { Image } from 'astro:assets';
     class="md:w-[192px] md:h-[76px]"
   />
   <Image
-    src="/src/assets/sponsors/logo_cdti.avif"
+    src={logoCdti}
     alt="Logo CDTI"
     class="filter brightness-75 sepia-[0.5] hue-rotate-[190deg] contrast-[1.2] hover:brightness-100 transition duration-300 object-contain"
     format="avif"
@@ -24,7 +27,7 @@ import { Image } from 'astro:assets';
 </div>
 <div class="flex justify-center">
   <Image
-    src="/src/assets/sponsors/logo_enisa.avif"
+    src={logoEnisa}
     alt="Logo Enisa"
     class="filter brightness-75 sepia-[0.5] hue-rotate-[190deg] contrast-[1.2] hover:brightness-100 transition duration-300 object-contain"
     format="avif"

@@ -1,5 +1,11 @@
 ---
 import { actions } from 'astro:actions';
+let isChecked = false;
+
+function handleCheckboxChange(event: Event) {
+  const target = event.target as HTMLInputElement;
+  isChecked = target.checked;
+}
 ---
 
 <form
@@ -55,9 +61,15 @@ import { actions } from 'astro:actions';
       placeholder="En què et podem ajudar?"
       autocomplete="off"></textarea>
   </div>
+  <label>
+    <input type="checkbox" on:change={handleCheckboxChange} />
+    Acepto la <a href="/politica-privacidad/">Política de Privacidad</a>.
+  </label>
   <button
     type="submit"
-    class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-lg transition"
-    >Enviar</button
+    class={`bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-lg transition ${!isChecked ? 'opacity-50 cursor-not-allowed' : ''}`}
+    disabled={!isChecked}
   >
+    Enviar
+  </button>
 </form>
