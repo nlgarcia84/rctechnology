@@ -6,6 +6,7 @@ import gadgets from '../assets/cards/gadgets.png';
 import dashboard from '../assets/cards/dashboard.png';
 import ContactForm from '../components/ContactForm.astro';
 import { supabase } from '../lib/supabaseClient';
+import Esponsors from '../components/Esponsors.astro';
 
 const data = [
   {
@@ -13,12 +14,14 @@ const data = [
     title: 'App y plataforma',
     description:
       'En el mundo de la atención médica actual, la precisión es esencial para brindar el mejor cuidado a nuestros pacientes. Con la ayuda de la inteligencia artificial y la innovación en dispositivos de última generación, estamos liderando el camino hacia una atención cardiológica más avanzada y personalizada que nunca.',
+    paginaDesti: '/plataforma/',
   },
   {
     imageUrl: gadgets,
     title: 'Nuestra Tecnología de Vanguardia',
     description:
       'Utilizamos dispositivos propios diseñados específicamente para medir su salud cardiovascular de manera precisa y continua. Estos dispositivos incluyen ECGs, holters, parches, implantables y wearables. Nuestra tecnología no solo registra los datos, sino que también utiliza algoritmos de inteligencia artificial de última generación para analizarlos de manera rápida y eficiente.',
+    paginaDesti: '/tecnologia/',
   },
   {
     imageUrl: dashboard,
@@ -29,6 +32,7 @@ const data = [
       'Acceso en Tiempo Real: Los datos de su corazón están disponibles para usted y su equipo médico en tiempo real, lo que permite una toma de decisiones más rápida y efectiva.',
       'Comodidad: Nuestros dispositivos son cómodos y fáciles de usar, lo que facilita el monitoreo constante de su salud cardiovascular.',
     ],
+    paginaDesti: '/ventajasplataforma/',
   },
 ];
 
@@ -73,6 +77,7 @@ export const actions = {
           title={d.title}
           description={d.description}
           class="mx-0"
+          paginaDesti={d.paginaDesti}
         />
       ))
     }
@@ -91,5 +96,12 @@ export const actions = {
       </span>
     </div>
   </div>
+  <h2 class="text-3xl md:text-4xl lg:text-5xl text-center mb-5">Contacto</h2>
   <ContactForm action={actions.contact} />
+  <div class="flex justify-center">
+    <h2 class="text-3xl md:text-4xl lg:text-5xl text-center mb-5">
+      Proyecto subvencionado por CDTI
+    </h2>
+  </div>
+  <Esponsors />
 </Layout>

@@ -6,34 +6,34 @@ import { actions } from 'astro:actions';
   method="POST"
   action={actions.enviarContacto}
   id="form"
-  class="bg-gray-900/50 rounded-xl shadow-md p-8 max-w-lg mx-auto flex flex-col gap-7 border-2 border-gray-700"
+  class="bg-gray-900/50 rounded-xl shadow-md p-8 mb-5 max-w-lg mx-auto flex flex-col gap-7 border-2 border-gray-700"
 >
   <div class="flex flex-col gap-1.5">
-    <label for="name" class="text-white">Nom</label>
+    <label for="name" class="text-white">Nombre</label>
     <input
       required
       type="text"
       name="name"
       id="name"
       class="border border-gray-700 rounded-lg px-4 py-2.5 bg-gray-900 text-white"
-      placeholder="El teu nom"
+      placeholder="Su nombre"
       autocomplete="off"
     />
   </div>
   <div class="flex flex-col gap-1.5">
-    <label for="surname" class="text-white">Cognom</label>
+    <label for="surname" class="text-white">Apellido</label>
     <input
       required
       type="text"
       name="surname"
       id="surname"
       class="border border-gray-700 rounded-lg px-4 py-2.5 bg-gray-900 text-white"
-      placeholder="El teu cognom"
+      placeholder="Su apellido"
       autocomplete="off"
     />
   </div>
   <div class="flex flex-col gap-1.5">
-    <label for="email" class="text-white">Correu electrònic</label>
+    <label for="email" class="text-white">Correo Electrónico</label>
     <input
       required
       type="email"
@@ -45,7 +45,7 @@ import { actions } from 'astro:actions';
     />
   </div>
   <div class="flex flex-col gap-1.5">
-    <label for="message" class="text-white">Missatge</label>
+    <label for="message" class="text-white">Mensaje</label>
     <textarea
       required
       name="message"
