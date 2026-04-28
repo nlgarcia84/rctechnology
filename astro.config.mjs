@@ -1,14 +1,13 @@
-// astro.config.mjs
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel'; // Asegúrate de que sea '@astrojs/vercel' (serverless) o '@astrojs/vercel/static'
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   output: 'server',
-  adapter: vercel({
-    imagesConfig: {
-      sizes: [320, 640, 1280],
-      domains: [],
+  adapter: vercel(), // Dejamos que use la configuración por defecto, que es la más estable
+  image: {
+    // Forzamos a que use Sharp, que es lo que Astro usa por defecto en local
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
     },
-    imageService: true, // Esto delega la optimización a Vercel
-  }),
+  },
 });

@@ -1,26 +1,24 @@
 ---
 import { Image } from 'astro:assets';
-import logoAccio from '../assets/sponsors/logo_accio.avif';
-import logoCdti from '../assets/sponsors/logo_cdti.avif';
-import logoEnisa from '../assets/sponsors/logo_enisa.avif';
+import logoAccio from '../assets/sponsors/logo_accio.webp';
+import logoCdti from '../assets/sponsors/logo_cdti.webp';
+import logoEnisa from '../assets/sponsors/logo_enisa.webp';
+
+const isMobile = true;
 ---
 
 <div class="flex flex-row justify-center gap-2 mb-2">
   <Image
     src={logoAccio}
     alt="Logo Accio"
-    format="avif"
-    width={128}
-    height={64}
-    class="filter brightness-75 sepia-[0.5] hue-rotate-[190deg] contrast-[1.2] hover:brightness-100 transition duration-300 object-contain md:w-[192px] md:h-[76px]"
+    format="webp"
+    class="filter brightness-90 grayscale contrast-[1.1] invert-[0.1] hover:invert-0 hover:grayscale-0 hover:brightness-100 transition duration-300 w-[100px] h-auto sm:w-[150px] md:w-[192px]"
   />
   <Image
     src={logoCdti}
     alt="Logo CDTI"
-    format="avif"
-    width={128}
-    height={64}
-    class="filter brightness-75 sepia-[0.5] hue-rotate-[190deg] contrast-[1.2] hover:brightness-100 transition duration-300 object-contain md:w-[192px] md:h-[76px]"
+    format="webp"
+    class="filter brightness-90 grayscale contrast-[1.1] invert-[0.1] hover:invert-0 hover:grayscale-0 hover:brightness-100 transition duration-300 w-[100px] h-auto sm:w-[150px] md:w-[192px]"
   />
 </div>
 
@@ -28,9 +26,7 @@ import logoEnisa from '../assets/sponsors/logo_enisa.avif';
   <Image
     src={logoEnisa}
     alt="Logo Enisa"
-    format="avif"
-    width={256}
-    height={76}
-    class="filter brightness-75 sepia-[0.5] hue-rotate-[190deg] contrast-[1.2] hover:brightness-100 transition duration-300 object-contain md:w-[400px] md:h-[50px]"
+    format="webp"
+    class="filter brightness-90 grayscale contrast-[1.1] invert-[0.1] hover:invert-0 hover:grayscale-0 hover:brightness-100 transition duration-300 w-[200px] h-auto sm:w-[300px] md:w-[400px]"
   />
 </div>
