@@ -6,7 +6,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 ---
 
 <header
-  class="grid grid-cols-2 md:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50"
+  class="grid grid-cols-2 md:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 relative z-40"
 >
   <div class="flex justify-start">
     <a href="/" class="logo shrink-0 md:hidden">
@@ -47,7 +47,6 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     <Button
       as="a"
       href="http://54.37.38.27/"
-      id="redbeatbutton"
       class="border border-red-700 hover:bg-red-700/20 px-5 py-2.5 rounded-xl hidden lg:block transition-all"
       text="REDBEAT"
     />
@@ -57,9 +56,10 @@ import logoMobile from '../assets/rctlogo_mobile.png';
       class="bg-red-700 hover:bg-red-800 px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-red-900/20"
       text="Contáctanos"
     />
+
     <button
       id="menu-btn"
-      class="md:hidden relative w-8 h-8 flex flex-col justify-around ml-2"
+      class="md:hidden relative w-8 h-8 flex flex-col justify-around z-[110]"
       aria-label="Menú"
     >
       <span class="block w-full h-0.5 bg-white transition-all duration-300"
@@ -74,22 +74,22 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
 <nav
   id="mobile-menu"
-  class="md:hidden fixed top-0 left-0 h-full w-4/5 max-w-xs bg-gray-900/95 backdrop-blur-xl text-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out shadow-2xl p-8"
+  class="md:hidden fixed top-0 left-0 h-screen w-4/5 max-w-xs bg-black/60 backdrop-blur-2xl border-r border-white/10 text-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out p-8 shadow-2xl"
 >
-  <div class="flex flex-col gap-6 mt-10">
-    <a href="/" class="text-2xl font-semibold border-b border-gray-800 pb-4"
+  <div class="flex flex-col gap-6 mt-24">
+    <a href="/" class="text-2xl font-semibold border-b border-white/10 pb-4"
       >Inicio</a
     >
     <a
       href="#aboutus"
-      class="text-2xl font-semibold border-b border-gray-800 pb-4">Acerca de</a
+      class="text-2xl font-semibold border-b border-white/10 pb-4">Acerca de</a
     >
-    <a href="#form" class="text-2xl font-semibold border-b border-gray-800 pb-4"
+    <a href="#form" class="text-2xl font-semibold border-b border-white/10 pb-4"
       >Contacto</a
     >
     <a
       href="http://54.37.38.27/"
-      class="text-2xl font-semibold text-red-500"
+      class="text-xl font-bold text-red-500 pt-4"
       target="_blank"
       rel="noopener noreferrer">Plataforma REDBEAT</a
     >
@@ -100,4 +100,50 @@ import logoMobile from '../assets/rctlogo_mobile.png';
   #menu-btn span {
     transform-origin: center;
   }
+  #menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+  #menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+  #menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  #mobile-menu.open {
+    transform: translateX(0);
+  }
 </style>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (menuBtn && mobileMenu) {
+    const toggleMenu = () => {
+      menuBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+      document.body.classList.toggle('overflow-hidden');
+    };
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      if (
+        mobileMenu.classList.contains('open') &&
+        !mobileMenu.contains(target) &&
+        !menuBtn.contains(target)
+      ) {
+        toggleMenu();
+      }
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', toggleMenu);
+    });
+  }
+</script>
