@@ -3,9 +3,53 @@ import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout>
-  <h1>Política de Cookies</h1>
-  <p>
-    Esta es la política de cookies de RC Technology. Aquí explicamos qué cookies
-    usamos y cómo puedes gestionarlas.
-  </p>
+  <div
+    id="cookie-banner"
+    class="fixed bottom-6 left-6 right-6 md:left-auto md:max-w-md bg-gray-900/95 backdrop-blur-xl border border-white/10 p-6 rounded-2xl shadow-2xl z-[200] hidden"
+  >
+    <div class="flex items-start gap-4">
+      <div class="bg-red-600/20 p-2 rounded-lg">
+        <svg
+          class="w-6 h-6 text-red-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <div>
+        <h3 class="text-white font-bold text-lg">Configuración de Cookies</h3>
+        <p class="text-gray-400 text-sm mt-2 leading-relaxed">
+          Utilizamos cookies propias y de terceros para analizar nuestros
+          servicios y mostrarte publicidad relacionada con tus preferencias.
+        </p>
+        <div class="flex flex-wrap gap-3 mt-6">
+          <button
+            id="accept-cookies"
+            class="bg-red-700 hover:bg-red-800 text-white text-sm font-bold py-2 px-6 rounded-xl transition-all"
+          >
+            Aceptar todas
+          </button>
+          <button
+            id="config-cookies"
+            class="border border-gray-700 hover:bg-gray-800 text-gray-300 text-sm py-2 px-6 rounded-xl transition-all"
+          >
+            Configurar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </Layout>
+<script is:inline>
+  window.addEventListener('cookies-accepted', () => {
+    // Aquí pegas el código de Google Analytics o Pixel
+    console.log('Consentimiento recibido: Cargando Analytics...');
+  });
+
+  // También chequear al cargar si ya estaba aceptado de antes
+  if (localStorage.getItem('cookie-consent') === 'accepted') {
+    // Cargar scripts directamente
+  }
+</script>
