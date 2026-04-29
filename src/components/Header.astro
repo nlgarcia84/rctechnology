@@ -6,58 +6,60 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 ---
 
 <header
-  class="flex items-center justify-between px-5 py-4 md:px-10 md:h-20 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white"
+  class="grid grid-cols-2 md:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50"
 >
-  <!-- Logo Mobile -->
-  <a href="/" class="logo shrink-0 md:hidden">
-    <Picture
-      src={logoMobile}
-      alt="RC Technology"
-      width={48}
-      height={48}
-      formats={['webp', 'png']}
-    />
-  </a>
+  <div class="flex justify-start">
+    <a href="/" class="logo shrink-0 md:hidden">
+      <Picture
+        src={logoMobile}
+        alt="RC Technology"
+        width={48}
+        height={48}
+        formats={['webp', 'png']}
+      />
+    </a>
+    <a href="/" class="logo shrink-0 hidden md:block">
+      <Picture
+        src={logo}
+        alt="RC Technology"
+        width={250}
+        height={80}
+        formats={['webp', 'png']}
+        class="h-16 w-auto object-contain"
+      />
+    </a>
+  </div>
 
-  <!-- Logo Desktop -->
-  <a href="/" class="logo shrink-0 hidden md:block">
-    <Picture
-      src={logo}
-      alt="RC Technology"
-      width={200}
-      height={60}
-      formats={['webp', 'png']}
-      class="h-12 w-auto"
-    />
-  </a>
-
-  <!-- Desktop Nav -->
-  <nav class="hidden md:flex gap-6 lg:gap-8 text-xl">
-    <a href="/" class="hover:text-blue-400 transition px-5">Inicio</a>
-    <a href="#aboutus" class="hover:text-blue-400 transition px-5">Acerca de</a>
-    <a href="#form" class="hover:text-blue-400 transition px-5">Contacto</a>
+  <nav
+    class="hidden md:flex justify-center items-center gap-4 text-lg font-medium"
+  >
+    <a href="/" class="hover:text-red-500 transition-colors px-4 py-2">Inicio</a
+    >
+    <a href="#aboutus" class="hover:text-red-500 transition-colors px-4 py-2"
+      >Acerca de</a
+    >
+    <a href="#form" class="hover:text-red-500 transition-colors px-4 py-2"
+      >Contacto</a
+    >
   </nav>
 
-  <div class="flex gap-4 items-center">
-    <!-- Botones -->
+  <div class="flex gap-4 items-center justify-end">
     <Button
       as="a"
       href="http://54.37.38.27/"
       id="redbeatbutton"
-      class="border border-red-700 px-5 py-3 rounded-2xl hidden md:block"
+      class="border border-red-700 hover:bg-red-700/20 px-5 py-2.5 rounded-xl hidden lg:block transition-all"
       text="REDBEAT"
     />
     <Button
       as="a"
       href="#form"
-      class="bg-red-700 px-5 py-3 rounded-2xl"
-      text="Contactanos"
+      class="bg-red-700 hover:bg-red-800 px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-red-900/20"
+      text="Contáctanos"
     />
-
-    <!-- Botón menú móvil -->
     <button
       id="menu-btn"
-      class="md:hidden relative w-8 h-8 flex flex-col justify-around"
+      class="md:hidden relative w-8 h-8 flex flex-col justify-around ml-2"
       aria-label="Menú"
     >
       <span class="block w-full h-0.5 bg-white transition-all duration-300"
@@ -70,75 +72,32 @@ import logoMobile from '../assets/rctlogo_mobile.png';
   </div>
 </header>
 
-<!-- Mobile Menu -->
 <nav
   id="mobile-menu"
-  class="md:hidden fixed top-0 left-0 h-full w-4/5 max-w-xs bg-gray-900/60 backdrop-blur-lg rounded-xl text-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg p-5 text-3xl"
+  class="md:hidden fixed top-0 left-0 h-full w-4/5 max-w-xs bg-gray-900/95 backdrop-blur-xl text-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out shadow-2xl p-8"
 >
-  <!-- enlaces aquí -->
-  <a href="/" class="block px-6 py-4 hover:bg-gray-700">Inicio</a>
-  <a href="#aboutus" class="block px-6 py-4 hover:bg-gray-700">Acerca de</a>
-  <a
-    href="http://54.37.38.27/"
-    class="block px-6 py-4 hover:bg-gray-700"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Plataforma
-  </a>
-  <nav
-    id="mobile-menu"
-    class="md:hidden fixed top-0 left-0 h-full w-4/5 max-w-xs bg-white/20 backdrop-blur-lg rounded-xl border border-white/30 text-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out shadow-lg"
-  >
-  </nav>
-
-  <style>
-    .logo img {
-      transition: opacity 0.3s;
-    }
-
-    .logo:hover img {
-      opacity: 0.8;
-    }
-
-    #menu-btn span {
-      transform-origin: center;
-    }
-
-    #menu-btn.active span:nth-child(1) {
-      transform: rotate(45deg) translate(8px, 8px);
-    }
-
-    #menu-btn.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    #menu-btn.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -6px);
-    }
-  </style>
-
-  <script>
-    const menuBtn = document.getElementById(
-      'menu-btn',
-    ) as HTMLButtonElement | null;
-
-    const mobileMenu = document.getElementById(
-      'mobile-menu',
-    ) as HTMLElement | null;
-
-    if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', () => {
-        menuBtn.classList.toggle('active');
-        mobileMenu.classList.toggle('-translate-x-full');
-      });
-
-      mobileMenu.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          menuBtn.classList.remove('active');
-          mobileMenu.classList.add('-translate-x-full');
-        });
-      });
-    }
-  </script>
+  <div class="flex flex-col gap-6 mt-10">
+    <a href="/" class="text-2xl font-semibold border-b border-gray-800 pb-4"
+      >Inicio</a
+    >
+    <a
+      href="#aboutus"
+      class="text-2xl font-semibold border-b border-gray-800 pb-4">Acerca de</a
+    >
+    <a href="#form" class="text-2xl font-semibold border-b border-gray-800 pb-4"
+      >Contacto</a
+    >
+    <a
+      href="http://54.37.38.27/"
+      class="text-2xl font-semibold text-red-500"
+      target="_blank"
+      rel="noopener noreferrer">Plataforma REDBEAT</a
+    >
+  </div>
 </nav>
+
+<style>
+  #menu-btn span {
+    transform-origin: center;
+  }
+</style>

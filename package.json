@@ -16,7 +16,9 @@
     "@supabase/supabase-js": "^2.104.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "astro": "^6.1.9",
-    "sharp": "^0.34.5"
+    "lucide": "^1.14.0",
+    "sharp": "^0.34.5",
+    "solid-js": "^1.9.12"
   },
   "devDependencies": {
     "autoprefixer": "^10.5.0",
