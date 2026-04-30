@@ -5,8 +5,13 @@ import logo from '../assets/rctlogo.png';
 import logoMobile from '../assets/rctlogo_mobile.png';
 ---
 
+<!-- 
+  CAMBIOS EN HEADER:
+  - 'fixed top-0 left-0 right-0': Lo fija arriba y lo estira a los lados.
+  - 'z-[120]': Mayor que el menú móvil para que el botón burger siempre sea visible.
+-->
 <header
-  class="grid grid-cols-2 md:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 relative z-40"
+  class="fixed top-0 left-0 right-0 grid grid-cols-2 md:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 z-[120]"
 >
   <div class="flex justify-start">
     <a href="/" class="logo shrink-0 md:hidden">
@@ -59,7 +64,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
     <button
       id="menu-btn"
-      class="md:hidden relative w-8 h-8 flex flex-col justify-around z-[110]"
+      class="md:hidden relative w-8 h-8 flex flex-col justify-around z-[130] cursor-pointer"
       aria-label="Menú"
     >
       <span class="block w-full h-0.5 bg-white transition-all duration-300"
@@ -74,7 +79,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
 <nav
   id="mobile-menu"
-  class="md:hidden fixed top-0 left-0 h-screen w-4/5 max-w-xs bg-black/60 backdrop-blur-2xl border-r border-white/10 text-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out p-8 shadow-2xl"
+  class="md:hidden fixed top-0 left-0 h-screen w-4/5 max-w-xs bg-black/90 backdrop-blur-2xl border-r border-white/10 text-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out p-8 shadow-2xl"
 >
   <div class="flex flex-col gap-6 mt-24">
     <a href="/" class="text-2xl font-semibold border-b border-white/10 pb-4"
@@ -87,24 +92,28 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     <a href="#form" class="text-2xl font-semibold border-b border-white/10 pb-4"
       >Contacto</a
     >
+
     <a
       href="https://redbeat.stackcode.io/#/authentication/signin"
       target="_blank"
       rel="noopener noreferrer"
       class="text-2xl font-semibold border-b border-white/10 pb-4"
-      >Plataforma <span class="text-xl font-bold text-red-500 pt-4"
-        >REDBEAT 1.0</span
-      ></a
     >
+      Plataforma <span class="text-xl font-bold text-red-500 pt-4"
+        >REDBEAT 1.0</span
+      >
+    </a>
+
     <a
       href="http://54.37.38.27/"
       target="_blank"
       rel="noopener noreferrer"
       class="text-2xl font-semibold border-b border-white/10 pb-4"
-      >Plataforma <span class="text-xl font-bold text-red-500 pt-4"
-        >REDBEAT 2.0</span
-      ></a
     >
+      Plataforma <span class="text-xl font-bold text-red-500 pt-4"
+        >REDBEAT 2.0</span
+      >
+    </a>
   </div>
 </nav>
 
@@ -121,41 +130,49 @@ import logoMobile from '../assets/rctlogo_mobile.png';
   #menu-btn.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
   }
-
   #mobile-menu.open {
     transform: translateX(0);
   }
 </style>
 
 <script>
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
+  // Solución para errores de TypeScript de la captura
+  const setupMenu = () => {
+    const menuBtn = document.getElementById('menu-btn') as HTMLElement | null;
+    const mobileMenu = document.getElementById(
+      'mobile-menu',
+    ) as HTMLElement | null;
 
-  if (menuBtn && mobileMenu) {
-    const toggleMenu = () => {
-      menuBtn.classList.toggle('active');
-      mobileMenu.classList.toggle('open');
-      document.body.classList.toggle('overflow-hidden');
-    };
+    if (menuBtn && mobileMenu) {
+      const toggleMenu = () => {
+        menuBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
+        document.body.classList.toggle('overflow-hidden');
+      };
 
-    menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    });
-
-    document.addEventListener('click', (e) => {
-      const target = e.target as Node;
-      if (
-        mobileMenu.classList.contains('open') &&
-        !mobileMenu.contains(target) &&
-        !menuBtn.contains(target)
-      ) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         toggleMenu();
-      }
-    });
+      });
 
-    mobileMenu.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', toggleMenu);
-    });
-  }
+      document.addEventListener('click', (e) => {
+        const target = e.target as Node;
+        if (
+          mobileMenu.classList.contains('open') &&
+          !mobileMenu.contains(target) &&
+          !menuBtn.contains(target)
+        ) {
+          toggleMenu();
+        }
+      });
+
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', toggleMenu);
+      });
+    }
+  };
+
+  // Ejecutar al cargar y tras cambios de página (Astro View Transitions)
+  setupMenu();
+  document.addEventListener('astro:after-swap', setupMenu);
 </script>

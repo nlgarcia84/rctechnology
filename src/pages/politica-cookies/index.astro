@@ -3,53 +3,73 @@ import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout>
-  <div
-    id="cookie-banner"
-    class="fixed bottom-6 left-6 right-6 md:left-auto md:max-w-md bg-gray-900/95 backdrop-blur-xl border border-white/10 p-6 rounded-2xl shadow-2xl z-[200] hidden"
+  <section
+    class="min-h-screen bg-gray-950 text-gray-300 py-12 px-6 sm:px-10 lg:px-20"
   >
-    <div class="flex items-start gap-4">
-      <div class="bg-red-600/20 p-2 rounded-lg">
-        <svg
-          class="w-6 h-6 text-red-500"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-      </div>
-      <div>
-        <h3 class="text-white font-bold text-lg">Configuración de Cookies</h3>
-        <p class="text-gray-400 text-sm mt-2 leading-relaxed">
-          Utilizamos cookies propias y de terceros para analizar nuestros
-          servicios y mostrarte publicidad relacionada con tus preferencias.
-        </p>
-        <div class="flex flex-wrap gap-3 mt-6">
-          <button
-            id="accept-cookies"
-            class="bg-red-700 hover:bg-red-800 text-white text-sm font-bold py-2 px-6 rounded-xl transition-all"
-          >
-            Aceptar todas
-          </button>
-          <button
-            id="config-cookies"
-            class="border border-gray-700 hover:bg-gray-800 text-gray-300 text-sm py-2 px-6 rounded-xl transition-all"
-          >
-            Configurar
-          </button>
-        </div>
+    <div
+      class="max-w-4xl mx-auto bg-gray-900/50 backdrop-blur-xl border border-white/10 p-8 sm:p-12 rounded-3xl shadow-2xl"
+    >
+      <header class="border-b border-white/10 pb-8 mb-8">
+        <h1 class="text-4xl font-bold text-white mb-4">Política de Cookies</h1>
+        <p class="text-sm text-gray-400">Última actualización: Abril 2026</p>
+      </header>
+
+      <div class="space-y-10">
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+            <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
+            ¿Qué son las cookies?[cite: 2]
+          </h2>
+          <p>
+            Las cookies son pequeños archivos de texto que los sitios web
+            almacenan en tu dispositivo para que funcionen de manera eficiente y
+            proporcionen información estadística[cite: 2].
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+            <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
+            Tabla de Cookies[cite: 2]
+          </h2>
+          <div class="overflow-x-auto">
+            <table
+              class="w-full text-left border-collapse border border-white/10 text-sm"
+            >
+              <thead>
+                <tr class="bg-gray-800/60 text-white">
+                  <th class="p-3 border border-white/10">Nombre</th>
+                  <th class="p-3 border border-white/10">Proveedor</th>
+                  <th class="p-3 border border-white/10">Finalidad</th>
+                  <th class="p-3 border border-white/10">Expiración</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="p-3 border border-white/10">cookie-consent</td>
+                  <td class="p-3 border border-white/10">Propia</td>
+                  <td class="p-3 border border-white/10"
+                    >Almacenar el estado de consentimiento[cite: 2].</td
+                  >
+                  <td class="p-3 border border-white/10">1 año[cite: 2]</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+            <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
+            Gestión y Desactivación[cite: 2]
+          </h2>
+          <p>
+            Puedes bloquear o eliminar las cookies instaladas mediante la
+            configuración de tu navegador (Chrome, Firefox, Safari, Edge)[cite:
+            2].
+          </p>
+        </section>
       </div>
     </div>
-  </div>
+  </section>
 </Layout>
-<script is:inline>
-  window.addEventListener('cookies-accepted', () => {
-    // Aquí pegas el código de Google Analytics o Pixel
-    console.log('Consentimiento recibido: Cargando Analytics...');
-  });
-
-  // También chequear al cargar si ya estaba aceptado de antes
-  if (localStorage.getItem('cookie-consent') === 'accepted') {
-    // Cargar scripts directamente
-  }
-</script>
