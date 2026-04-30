@@ -5,16 +5,15 @@ import logo from '../assets/rctlogo.png';
 import logoMobile from '../assets/rctlogo_mobile.png';
 ---
 
-<!-- 
-  CAMBIOS EN HEADER:
-  - 'fixed top-0 left-0 right-0': Lo fija arriba y lo estira a los lados.
-  - 'z-[120]': Mayor que el menú móvil para que el botón burger siempre sea visible.
--->
 <header
-  class="fixed top-0 left-0 right-0 grid grid-cols-2 md:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 z-[120]"
+  id="main-header"
+  class="fixed top-0 left-0 right-0 grid grid-cols-2 md:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 z-[120] transition-all duration-500 ease-in-out"
 >
-  <div class="flex justify-start">
-    <a href="/" class="logo shrink-0 md:hidden">
+  <div
+    id="header-logo"
+    class="flex items-center justify-start transition-all duration-500 origin-left"
+  >
+    <a href="/" class="logo shrink-0 md:hidden flex items-center">
       <Picture
         src={logoMobile}
         alt="RC Technology"
@@ -23,20 +22,21 @@ import logoMobile from '../assets/rctlogo_mobile.png';
         formats={['webp', 'png']}
       />
     </a>
-    <a href="/" class="logo shrink-0 hidden md:block">
+    <a href="/" class="logo shrink-0 hidden md:flex items-center">
       <Picture
         src={logo}
         alt="RC Technology"
         width={250}
         height={80}
         formats={['webp', 'png']}
-        class="h-16 w-auto object-contain"
+        class="h-16 w-auto object-contain transition-all duration-500"
       />
     </a>
   </div>
 
   <nav
-    class="hidden md:flex justify-center items-center gap-4 text-lg font-medium"
+    id="header-nav"
+    class="hidden md:flex justify-center items-center gap-4 text-lg font-medium transition-all duration-500 origin-center"
   >
     <a href="/" class="hover:text-red-500 transition-colors px-4 py-2">Inicio</a
     >
@@ -48,7 +48,10 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     >
   </nav>
 
-  <div class="flex gap-4 items-center justify-end">
+  <div
+    id="header-actions"
+    class="flex gap-4 items-center justify-end transition-all duration-500 origin-right"
+  >
     <Button
       as="a"
       href="http://54.37.38.27/"
@@ -79,7 +82,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
 <nav
   id="mobile-menu"
-  class="md:hidden fixed top-0 left-0 h-screen w-4/5 max-w-xs bg-black/90 backdrop-blur-2xl border-r border-white/10 text-white z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out p-8 shadow-2xl"
+  class="md:hidden fixed top-0 left-0 h-screen w-4/5 max-w-xs bg-black/60 backdrop-blur-2xl border-r border-white/10 text-white z-[150] transform -translate-x-full transition-transform duration-300 ease-in-out p-8 shadow-2xl"
 >
   <div class="flex flex-col gap-6 mt-24">
     <a href="/" class="text-2xl font-semibold border-b border-white/10 pb-4"
@@ -92,7 +95,6 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     <a href="#form" class="text-2xl font-semibold border-b border-white/10 pb-4"
       >Contacto</a
     >
-
     <a
       href="https://redbeat.stackcode.io/#/authentication/signin"
       target="_blank"
@@ -103,7 +105,6 @@ import logoMobile from '../assets/rctlogo_mobile.png';
         >REDBEAT 1.0</span
       >
     </a>
-
     <a
       href="http://54.37.38.27/"
       target="_blank"
@@ -136,13 +137,15 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 </style>
 
 <script>
-  // Solución para errores de TypeScript de la captura
-  const setupMenu = () => {
-    const menuBtn = document.getElementById('menu-btn') as HTMLElement | null;
-    const mobileMenu = document.getElementById(
-      'mobile-menu',
-    ) as HTMLElement | null;
+  const initHeader = () => {
+    const header = document.getElementById('main-header');
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const logo = document.getElementById('header-logo');
+    const nav = document.getElementById('header-nav');
+    const actions = document.getElementById('header-actions');
 
+    // Lógica del Menú Móvil
     if (menuBtn && mobileMenu) {
       const toggleMenu = () => {
         menuBtn.classList.toggle('active');
@@ -150,29 +153,43 @@ import logoMobile from '../assets/rctlogo_mobile.png';
         document.body.classList.toggle('overflow-hidden');
       };
 
-      menuBtn.addEventListener('click', (e) => {
+      menuBtn.onclick = (e) => {
         e.stopPropagation();
         toggleMenu();
-      });
-
-      document.addEventListener('click', (e) => {
-        const target = e.target as Node;
-        if (
-          mobileMenu.classList.contains('open') &&
-          !mobileMenu.contains(target) &&
-          !menuBtn.contains(target)
-        ) {
-          toggleMenu();
-        }
-      });
+      };
 
       mobileMenu.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', toggleMenu);
+        link.onclick = toggleMenu;
+      });
+    }
+
+    // Lógica de Scroll y Centrado
+    if (header) {
+      window.addEventListener('scroll', () => {
+        const isScrolled = window.scrollY > 50;
+        const scaleClass = 'scale-[0.85]';
+
+        if (isScrolled) {
+          // Centrado vertical: quitamos py-4 y forzamos altura menor con items-center
+          header.classList.remove('md:h-24', 'py-4');
+          header.classList.add('h-16', 'md:h-16', 'py-0', 'items-center');
+
+          logo?.classList.add(scaleClass);
+          nav?.classList.add(scaleClass);
+          actions?.classList.add(scaleClass);
+        } else {
+          header.classList.add('md:h-24', 'py-4');
+          header.classList.remove('h-16', 'md:h-16', 'py-0');
+
+          logo?.classList.remove(scaleClass);
+          nav?.classList.remove(scaleClass);
+          actions?.classList.remove(scaleClass);
+        }
       });
     }
   };
 
-  // Ejecutar al cargar y tras cambios de página (Astro View Transitions)
-  setupMenu();
-  document.addEventListener('astro:after-swap', setupMenu);
+  initHeader();
+  // Reiniciar tras navegación en Astro
+  document.addEventListener('astro:after-swap', initHeader);
 </script>
