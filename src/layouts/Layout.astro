@@ -28,21 +28,26 @@ import CookieBanner from '../components/CookieBanner.astro';
       id="reset-cookies"
       class="flex items-center justify-center gap-2 text-lg text-green-500 border-green-500 border-2 rounded-xl hover:bg-green-500/10 transition-all w-52 py-2 mb-10 mx-auto font-medium"
     >
-      <i data-lucide="cookie" class="w-5 h-5"></i>
-      Revisar cookies
+      <i data-lucide="cookie" class="w-5 h-5 text-green-500"></i> Revisar cookies
     </button>
 
     <Footer class="fixed left-0 bottom-0 w-full z-50" />
+
     <CookieBanner />
+
+    <a href="/" id="return-top" class="fixed bottom-0 right-0 m-10">
+      <i data-lucide="circle-arrow-up" class="w-10 h-10"></i>
+    </a>
 
     <script>
       // Importamos Lucide dentro del script del cliente
-      import { createIcons, Cookie } from 'lucide';
+      import { createIcons, Cookie, CircleArrowUp } from 'lucide';
 
       const initIcons = () => {
         createIcons({
           icons: {
             Cookie,
+            CircleArrowUp,
           },
         });
       };
@@ -60,6 +65,16 @@ import CookieBanner from '../components/CookieBanner.astro';
 
       // Si usas View Transitions, reinicializa los iconos
       document.addEventListener('astro:after-swap', initIcons);
+
+      // Transicion smooth del scrool top
+      document.getElementById('return-top')?.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
     </script>
   </body>
 </html>
