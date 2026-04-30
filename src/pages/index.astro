@@ -64,18 +64,17 @@ export const actions = {
 ---
 
 <Layout>
-  <h1 class="pt-28 md:pt-32 text-4xl md:text-5xl lg:text-6xl text-center mb-5">
+  <h1 class="pt-28 md:pt-32 text-4xl md:text-5xl lg:text-6xl text-center my-10">
     Detección y medicina de precisión con IA para cardiología
   </h1>
-  <h2 class="text-l md:text-xl lg:text-2xl text-center px-5 mb-5">
+  <h2 class="text-l md:text-xl lg:text-2xl text-center px-5 mb-10">
     Llevar el poder de la inteligencia artificial a la atención cardiaca
   </h2>
 
-  <div id="aboutus">
+  <div id="hero">
     <div class="relative w-full bg-gray-950 overflow-hidden">
-      <!-- CONTENEDOR PRINCIPAL -->
       <div class="relative h-[75vh] w-full">
-        <!-- 1. LA IMAGEN -->
+        <!-- IMAGEN -->
         <Picture
           src={abueloreloj}
           formats={['avif', 'webp']}
@@ -84,50 +83,46 @@ export const actions = {
           class="absolute inset-0 h-full w-full object-cover z-0"
         />
 
-        <!-- 2. FILTRO BASE (Gray 950 muy sutil para unificar tonos) -->
-        <div class="absolute inset-0 bg-gray-950/40 z-10"></div>
+        <!-- FILTRO Y DEGRADADOS DE BORDE (Reforzados por los cuatro costados) -->
 
-        <!-- 3. DEGRADADO RADIAL ULTRA-FUERTE -->
-        <!-- Ajustamos el transparent al 0% y el color sólido al 80% para que el desvanecido sea muy largo -->
+        <!-- 1. Capa de tinte base (opcional, para oscurecer la imagen entera) -->
+        <div class="absolute inset-0 bg-gray-950/50 z-10"></div>
+
+        <!-- 2. Degradado Radial (Vignette) - Mantenido para las esquinas y suavizado general -->
         <div
           class="absolute inset-0 z-20"
-          style="background: radial-gradient(circle, transparent 0%, #030712 85%);"
+          style="background: radial-gradient(circle, transparent 0%, #030712 95%);"
         >
         </div>
 
-        <!-- 4. DIFUMINADO DE BORDES LINEALES (Para eliminar la silueta del div) -->
-        <!-- Arriba -->
+        <!-- 3. Degradado Lineal ARRIBA - Se desvanece de Gray-950 a Transparente -->
         <div
           class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-gray-950 to-transparent z-25"
         >
         </div>
-        <!-- Abajo -->
+
+        <!-- 4. Degradado Lineal ABAJO - Se desvanece de Gray-950 a Transparente -->
         <div
           class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-gray-950 to-transparent z-25"
         >
         </div>
-        <!-- Izquierda -->
-        <div
-          class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-gray-950 to-transparent z-25"
-        >
-        </div>
-        <!-- Derecha -->
-        <div
-          class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-gray-950 to-transparent z-25"
-        >
-        </div>
 
-        <!-- 5. CONTENIDO -->
+        <!-- CONTENIDO CON SOMBREADO DIFUMINADO Y NATURAL -->
         <div
           class="relative z-30 flex flex-col items-center justify-center h-full text-center px-8"
         >
+          <!-- Título: Sombra muy amplia y suave (Glow sutil) -->
           <h1
-            class="text-white text-5xl md:text-6xl font-black tracking-tight mb-6 drop-shadow-2xl"
+            class="text-white text-5xl md:text-6xl font-black tracking-tight mb-6
+           filter drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
           >
             EL TIEMPO ES SABIDURÍA
           </h1>
+
+          <!-- Texto gray-300: Sombra expandida para separar del fondo sin endurecer las letras -->
           <p
-            class="text-gray-300 text-lg md:text-xl max-w-xl font-medium leading-relaxed"
+            class="text-gray-300 text-lg md:text-xl max-w-xl font-bold leading-relaxed
+           filter drop-shadow-[0_5px_20px_rgba(0,0,0,0.6)]"
           >
             Tecnología diseñada con la calma y precisión que solo los años
             otorgan.
@@ -135,29 +130,32 @@ export const actions = {
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="mb-10 flex flex-col gap-6 items-center md:flex-row md:items-stretch md:justify-center md:gap-8 px-2 sm:px-4"
-  >
-    {
-      data.map((d) => (
-        <CardOptimized
-          imageUrl={d.imageUrl}
-          title={d.title}
-          description={d.description}
-          class="mx-0"
-          paginaDesti={d.paginaDesti}
-        />
-      ))
-    }
-  </div>
-  <h2 class="text-3xl md:text-4xl lg:text-5xl text-center mb-5">Contacto</h2>
-  <div id="contact"></div>
-  <ContactForm action={actions.contact} />
-  <div class="flex justify-center">
-    <h2 class="text-3xl md:text-4xl lg:text-5xl text-center mb-5">
-      Proyecto subvencionado por CDTI
+    <h2 class="text-3xl md:text-4xl lg:text-5xl text-center my-20">
+      Nuestros productos
     </h2>
+    <div
+      class="mb-10 flex flex-col gap-6 items-center md:flex-row md:items-stretch md:justify-center md:gap-8 px-2 sm:px-4"
+    >
+      {
+        data.map((d) => (
+          <CardOptimized
+            imageUrl={d.imageUrl}
+            title={d.title}
+            description={d.description}
+            class="mx-0"
+            paginaDesti={d.paginaDesti}
+          />
+        ))
+      }
+    </div>
+    <h2 class="text-3xl md:text-4xl lg:text-5xl text-center my-20">Contacto</h2>
+    <div id="contact"></div>
+    <ContactForm action={actions.contact} />
+    <div class="flex justify-center">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl text-center my-20">
+        Proyecto subvencionado por CDTI
+      </h2>
+    </div>
+    <Esponsors />
   </div>
-  <Esponsors />
 </Layout>
