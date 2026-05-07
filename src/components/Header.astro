@@ -7,13 +7,13 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
 <header
   id="main-header"
-  class="fixed top-0 left-0 right-0 grid grid-cols-2 md:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 z-[120] transition-all duration-500 ease-in-out"
+  class="fixed top-0 left-0 right-0 grid grid-cols-2 lg:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 z-[120] transition-all duration-500 ease-in-out"
 >
   <div
     id="header-logo"
     class="flex items-center justify-start transition-all duration-500 origin-left"
   >
-    <a href="/#hero" class="logo shrink-0 md:hidden flex items-center">
+    <a href="/#hero" class="logo shrink-0 lg:hidden flex items-center">
       <Picture
         src={logoMobile}
         alt="RC Technology"
@@ -22,7 +22,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
         formats={['webp', 'png']}
       />
     </a>
-    <a href="/#hero" class="logo shrink-0 hidden md:flex items-center">
+    <a href="/#hero" class="logo shrink-0 hidden lg:flex items-center">
       <Picture
         src={logo}
         alt="RC Technology"
@@ -36,7 +36,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
   <nav
     id="header-nav"
-    class="hidden md:flex justify-center items-center gap-4 text-lg font-medium transition-all duration-500 origin-center"
+    class="hidden lg:flex justify-center items-center gap-4 text-lg font-medium transition-all duration-500 origin-center"
   >
     <a href="/#hero" class="hover:text-red-500 transition-colors px-4 py-2"
       >Inicio</a
@@ -62,13 +62,13 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     <Button
       as="a"
       href="/#contact"
-      class="bg-red-700 hover:bg-red-800 px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-red-900/20"
+      class="bg-red-700 hover:bg-red-800 px-3 py-2 xs:px-6 xs:py-2.5 rounded-xl transition-all shadow-lg shadow-red-900/20 text-sm xs:text-base"
       text="Contáctanos"
     />
 
     <button
       id="menu-btn"
-      class="md:hidden relative w-8 h-8 flex flex-col justify-around z-[130] cursor-pointer"
+      class="lg:hidden relative w-6 sm:w-8 h-6 sm:h-8 flex flex-col justify-around z-[130] cursor-pointer"
       aria-label="Menú"
     >
       <span class="block w-full h-0.5 bg-white transition-all duration-300"
@@ -83,7 +83,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
 <nav
   id="mobile-menu"
-  class="md:hidden fixed top-0 left-0 h-screen w-4/5 max-w-xs bg-black/60 backdrop-blur-2xl border-r border-white/10 text-white z-[150] transform -translate-x-full transition-transform duration-300 ease-in-out p-8 shadow-2xl"
+  class="lg:hidden fixed top-0 left-0 h-screen w-4/5 max-w-xs bg-black/60 backdrop-blur-2xl border-r border-white/10 text-white z-[150] transform -translate-x-full transition-transform duration-300 ease-in-out p-8 shadow-2xl"
 >
   <div class="flex flex-col gap-6 mt-24">
     <a

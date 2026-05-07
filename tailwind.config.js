@@ -1,7 +1,11 @@
 export default {
   content: ['./src/**/*.{astro,js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        xs: '425px',
+      },
+    },
   },
   plugins: [],
 };
