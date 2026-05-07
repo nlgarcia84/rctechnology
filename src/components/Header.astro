@@ -13,7 +13,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     id="header-logo"
     class="flex items-center justify-start transition-all duration-500 origin-left"
   >
-    <a href="/" class="logo shrink-0 md:hidden flex items-center">
+    <a href="/#hero" class="logo shrink-0 md:hidden flex items-center">
       <Picture
         src={logoMobile}
         alt="RC Technology"
@@ -22,7 +22,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
         formats={['webp', 'png']}
       />
     </a>
-    <a href="/" class="logo shrink-0 hidden md:flex items-center">
+    <a href="/#hero" class="logo shrink-0 hidden md:flex items-center">
       <Picture
         src={logo}
         alt="RC Technology"
@@ -38,12 +38,13 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     id="header-nav"
     class="hidden md:flex justify-center items-center gap-4 text-lg font-medium transition-all duration-500 origin-center"
   >
-    <a href="/" class="hover:text-red-500 transition-colors px-4 py-2">Inicio</a
+    <a href="/#hero" class="hover:text-red-500 transition-colors px-4 py-2"
+      >Inicio</a
     >
-    <a href="#aboutus" class="hover:text-red-500 transition-colors px-4 py-2"
+    <a href="/#aboutus" class="hover:text-red-500 transition-colors px-4 py-2"
       >Acerca de</a
     >
-    <a href="#contact" class="hover:text-red-500 transition-colors px-4 py-2"
+    <a href="/#contact" class="hover:text-red-500 transition-colors px-4 py-2"
       >Contacto</a
     >
   </nav>
@@ -60,7 +61,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     />
     <Button
       as="a"
-      href="#form"
+      href="/#contact"
       class="bg-red-700 hover:bg-red-800 px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-red-900/20"
       text="Contáctanos"
     />
@@ -85,15 +86,17 @@ import logoMobile from '../assets/rctlogo_mobile.png';
   class="md:hidden fixed top-0 left-0 h-screen w-4/5 max-w-xs bg-black/60 backdrop-blur-2xl border-r border-white/10 text-white z-[150] transform -translate-x-full transition-transform duration-300 ease-in-out p-8 shadow-2xl"
 >
   <div class="flex flex-col gap-6 mt-24">
-    <a href="/" class="text-2xl font-semibold border-b border-white/10 pb-4"
-      >Inicio</a
+    <a
+      href="/#hero"
+      class="text-2xl font-semibold border-b border-white/10 pb-4">Inicio</a
     >
     <a
-      href="#aboutus"
+      href="/#aboutus"
       class="text-2xl font-semibold border-b border-white/10 pb-4">Acerca de</a
     >
-    <a href="#form" class="text-2xl font-semibold border-b border-white/10 pb-4"
-      >Contacto</a
+    <a
+      href="/#contact"
+      class="text-2xl font-semibold border-b border-white/10 pb-4">Contacto</a
     >
     <a
       href="https://redbeat.stackcode.io/#/authentication/signin"
