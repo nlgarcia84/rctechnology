@@ -96,7 +96,7 @@ export const actions = {
       <h1
         class="text-white text-5xl md:text-6xl font-black tracking-tight mb-6 pt-36"
       >
-        Biometría avanzada: Hardware propio, análisis por IA
+        Precisión cardíaca constante para una vida plena y segura
       </h1>
 
       <p class="text-gray-300 text-lg md:text-xl font-medium leading-relaxed">
@@ -149,12 +149,74 @@ export const actions = {
     }
   </div>
 
+  <!-- ABOUT US -->
+  <div class="relative w-full h-[75vh] bg-gray-950 overflow-hidden">
+    <!-- VIDEO -->
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover z-0 scale-110 blur-[1.5px] brightness-75"
+    >
+      <source src="/assets/hero2.mp4" type="video/mp4" />
+    </video>
+
+    <!-- TINTE BASE -->
+    <div class="absolute inset-0 bg-gray-950/60 z-10"></div>
+
+    <!-- VIGNETTE -->
+    <div
+      class="absolute inset-0 z-20"
+      style="background: radial-gradient(circle, transparent 0%, #030712 95%);"
+    >
+    </div>
+
+    <!-- DEGRADADOS COMO CONTACTFORM -->
+    <div
+      class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-gray-950 to-transparent z-30"
+    >
+    </div>
+    <div
+      class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-gray-950 to-transparent z-30"
+    >
+    </div>
+    <div
+      class="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-gray-950 to-transparent z-30"
+    >
+    </div>
+    <div
+      class="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-gray-950 to-transparent z-30"
+    >
+    </div>
+
+    <!-- CONTENIDO -->
+    <div
+      class="relative z-40 flex flex-col items-center justify-center h-full text-center px-8"
+    >
+      <h2
+        class="text-3xl md:text-4xl lg:text-5xl text-center my-24 font-semibold tracking-tight"
+      >
+        Sobre Nosotros
+      </h2>
+
+      <p
+        class="text-gray-300 text-lg md:text-3xl sm:px-2 font-medium leading-relaxed"
+      >
+        En RC Technology, no solo observamos el futuro de la medicina; lo
+        estamos construyendo. Nacimos con la misión de cerrar la brecha entre la
+        tecnología de vanguardia y el cuidado del corazón, transformando datos
+        biométricos complejos en diagnósticos claros, rápidos y precisos.
+      </p>
+    </div>
+  </div>
+
   <!-- CONTACTO -->
   <h2
     id="contact"
     class="text-3xl md:text-4xl lg:text-5xl text-center my-24 font-semibold tracking-tight"
   >
-    Contacte con nosotros
+    Contacto
   </h2>
 
   <ContactForm action={actions.contact} />
