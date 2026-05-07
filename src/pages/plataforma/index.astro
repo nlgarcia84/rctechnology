@@ -1,5 +1,122 @@
 ---
+import MiniCard from '../../components/MiniCard.astro';
 import Layout from '../../layouts/Layout.astro';
+import pkg from 'lucide-react';
+const { Home } = pkg;
+const isHomePage = Astro.url.pathname === '/';
+
+const data = [
+  {
+    icon: 'Heart',
+    title: 'Signos Vitales',
+    description:
+      'Frecuencia cardíaca, SpO2, temperatura cutánea y presión arterial.',
+  },
+  {
+    icon: 'Activity',
+    title: 'Biomarcadores Críticos',
+    description:
+      'Seguimiento de niveles de NT-proBNP (insuficiencia cardíaca) y Calcio en orina (riesgo renal-cardíaco).',
+  },
+  {
+    icon: 'Scale',
+    title: 'Análisis de Composición Corporal',
+    description:
+      'Control exhaustivo del peso y la retención de líquidos para prevenir descompensaciones.',
+  },
+  {
+    icon: 'Zap',
+    title: 'ECG Hospitalario',
+    description:
+      'Integración de electrocardiogramas de 12 derivaciones realizados en entornos clínicos o domiciliarios.',
+  },
+];
 ---
 
-<Layout />
+<Layout>
+  <section class="min-h-screen bg-gray-950 text-gray-300 lg:px-20">
+    <div
+      class="max-w-4xl mx-auto bg-gray-900/50 backdrop-blur-xl border border-white/10 sm:p-12 rounded-3xl shadow-2xl"
+    >
+      <header
+        class="border-b border-white/10 p-5 mb-8 flex items-center justify-between gap-4"
+      >
+        <h1 class="text-4xl font-bold text-white mb-0">
+          RedBeat Health Platform
+        </h1>
+        {
+          !isHomePage && (
+            <a
+              href="/#hero"
+              id="go-home"
+              class="inline-flex items-center gap-2 rounded-xl border border-red-500/80 bg-gray-900/80 px-4 py-2 text-red-400 transition-all hover:bg-red-500/10"
+            >
+              <Home className="w-5 h-5" />
+            </a>
+          )
+        }
+      </header>
+
+      <article
+        class="bg-gray-800/40 rounded-2xl p-6 mb-10 border border-white/5 m-5"
+      >
+        <h2 class="text-xl font-semibold text-white mb-4 flex items-center">
+          <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
+          El Ecosistema Integral de Salud Conectada
+        </h2>
+        <p>
+          La <span class="text-red-600 font-semibold"
+            >REDBEAT HEALTH PLATFORM</span
+          > de RC Technology es una solución de salud digital de próxima generación
+          que transforma la atención cardiológica reactiva en una estrategia de prevención
+          continua y personalizada. Nuestra plataforma actúa como el núcleo inteligente
+          de un ecosistema compuesto por seis dispositivos médicos interconectados,
+          diseñados para monitorizar la salud cardiovascular desde cualquier lugar.
+        </p>
+      </article>
+
+      <article
+        class="bg-gray-800/40 rounded-2xl p-6 mb-10 border border-white/5 m-5"
+      >
+        <h2 class="text-xl font-semibold text-white mb-4 flex items-center">
+          <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
+          Una Visión Integral del Paciente en Tiempo Real
+        </h2>
+        <p class="mb-5">
+          Gracias a nuestra Conectividad Total, todos los dispositivos de la
+          gama RedBeat —desde wearables y básculas médicas hasta medidores de
+          biomarcadores— sincronizan sus datos automáticamente en la nube. Esto
+          permite a los profesionales de la salud acceder a un Dashboard de
+          Monitorización avanzado, donde pueden visualizar de forma unificada:
+        </p>
+        <ol>
+          {
+            data.map((d) => (
+              <li class="bg-gray-800/40 rounded-2xl p-6 mb-10 border border-white/5 m-5">
+                <MiniCard
+                  icon={d.icon}
+                  title={d.title}
+                  description={d.description}
+                />
+              </li>
+            ))
+          }
+        </ol>
+      </article>
+      <article
+        class="bg-gray-800/40 rounded-2xl p-6 mb-10 border border-white/5 m-5"
+      >
+        <h2 class="text-xl font-semibold text-white mb-4 flex items-center">
+          <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
+          Inteligencia Artificial para un Diagnóstico Preventivo
+        </h2>
+        <p>
+          La plataforma <span class="text-red-600 font-semibold">REDBEAT</span> no
+          solo almacena datos; los interpreta. Estamos entrenando modelos de Inteligencia
+          Artificial para generar reportes clínicos automáticos que ayuden a identificar
+          irregularidades sutiles antes de que se conviertan en eventos críticos.
+        </p>
+      </article>
+    </div>
+  </section>
+</Layout>

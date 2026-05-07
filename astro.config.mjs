@@ -1,9 +1,10 @@
 import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
+import react from '@astrojs/react';
 
 export default defineConfig({
   output: 'server',
-  adapter: vercel(), // Dejamos que use la configuración por defecto, que es la más estable
+  integrations: [react(), vercel()],
   image: {
     // Forzamos a que use Sharp, que es lo que Astro usa por defecto en local
     service: {

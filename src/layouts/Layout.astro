@@ -3,6 +3,8 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
+import pkg from 'lucide-react';
+const { Cookie, ArrowUpCircle, Home } = pkg;
 ---
 
 <html lang="es">
@@ -17,7 +19,7 @@ import CookieBanner from '../components/CookieBanner.astro';
       rel="stylesheet"
     />
   </head>
-  <body class="bg-gray-950 text-gray-300 flex flex-col min-h-screen p-0">
+  <body class="bg-gray-950 text-gray-300 flex flex-col min-h-screen pt-40">
     <Header />
 
     <main class="grow px-5 pt-5 pb-20">
@@ -28,7 +30,7 @@ import CookieBanner from '../components/CookieBanner.astro';
       id="reset-cookies"
       class="flex items-center justify-center gap-2 text-lg text-green-500 border-green-500 border-2 rounded-xl hover:bg-green-500/10 transition-all w-52 py-2 mb-20 mx-auto font-medium"
     >
-      <i data-lucide="cookie" class="w-5 h-5 text-green-500"></i> Revisar cookies
+      <Cookie className="w-5 h-5 text-green-500" /> Revisar cookies
     </button>
 
     <Footer class="fixed left-0 bottom-0 w-full z-50" />
@@ -36,25 +38,10 @@ import CookieBanner from '../components/CookieBanner.astro';
     <CookieBanner />
 
     <a href="/" id="return-top" class="fixed bottom-0 right-0 m-10 z-[200]">
-      <i data-lucide="circle-arrow-up" class="w-10 h-10"></i>
+      <ArrowUpCircle className="w-10 h-10" />
     </a>
 
     <script>
-      // Importamos Lucide dentro del script del cliente
-      import { createIcons, Cookie, CircleArrowUp } from 'lucide';
-
-      const initIcons = () => {
-        createIcons({
-          icons: {
-            Cookie,
-            CircleArrowUp,
-          },
-        });
-      };
-
-      // Ejecutar al cargar la página
-      initIcons();
-
       // Lógica para resetear cookies
       document
         .getElementById('reset-cookies')
@@ -62,9 +49,6 @@ import CookieBanner from '../components/CookieBanner.astro';
           localStorage.removeItem('cookie-consent');
           location.reload();
         });
-
-      // Si usas View Transitions, reinicializa los iconos
-      document.addEventListener('astro:after-swap', initIcons);
 
       // Transicion smooth del scrool top
       document.getElementById('return-top')?.addEventListener('click', (e) => {

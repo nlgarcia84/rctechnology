@@ -1,0 +1,57 @@
+---
+import {
+  Heart,
+  Activity,
+  Scale,
+  Zap,
+  Link2,
+  BellRing,
+  ShieldCheck,
+  Watch,
+  HeartPulse,
+  FlaskConical,
+  Droplets,
+  ScanLine,
+  Building2,
+} from 'lucide-react';
+
+interface Props {
+  icon?: string;
+  title: string;
+  description: string;
+}
+
+const { icon, title, description } = Astro.props;
+
+const iconMap = {
+  Heart,
+  Activity,
+  Scale,
+  Zap,
+  Link2,
+  BellRing,
+  ShieldCheck,
+  Watch,
+  HeartPulse,
+  FlaskConical,
+  Droplets,
+  ScanLine,
+  Building2,
+};
+
+const IconComponent =
+  icon && icon in iconMap ? iconMap[icon as keyof typeof iconMap] : null;
+---
+
+<div class="text-center">
+  {
+    IconComponent && (
+      <IconComponent className="w-6 h-6 text-red-600 mb-2 ml-auto mr-auto" />
+    )
+  }
+
+  <span class="text-2xl font-semibold"> {title} </span>
+  <p class="py-2">
+    {description}
+  </p>
+</div>
