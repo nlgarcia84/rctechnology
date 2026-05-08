@@ -7,7 +7,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
 <header
   id="main-header"
-  class="fixed top-0 left-0 right-0 grid grid-cols-2 lg:grid-cols-[auto_1fr_auto] items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 z-[120] transition-all duration-500 ease-in-out"
+  class="fixed top-0 left-0 right-0 grid grid-cols-2 lg:grid-cols-[auto_1fr_auto] items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 z-[120] transition-all duration-500 ease-in-out justify-center"
 >
   <div
     id="header-logo"
@@ -36,16 +36,21 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
   <nav
     id="header-nav"
-    class="hidden lg:flex justify-center items-center gap-4 text-lg font-medium transition-all duration-500 origin-center"
+    class="hidden lg:flex place-self-center justify-center items-center gap-4 text-lg font-medium transition-all duration-500 origin-center xl:pl-36"
   >
-    <a href="/#hero" class="hover:text-red-500 transition-colors px-4 py-2"
+    <a
+      href="/#hero"
+      class="hover:text-red-500 transition-colors lg:px-4 xl:px-8 py-2"
       >Inicio</a
     >
-    <a href="/#aboutus" class="hover:text-red-500 transition-colors px-4 py-2"
-      >Acerca de</a
+    <a
+      href="/#aboutus"
+      class="hover:text-red-500 transition-colors lg:px-4 xl:px-8 py-2"
+      >Sobre Nosotros</a
     >
-    <a href="/#contact" class="hover:text-red-500 transition-colors px-4 py-2"
-      >Contacto</a
+    <a
+      href="/#contact"
+      class="hover:text-red-500 transition-colors lg:px-4 xl:px-8">Contacto</a
     >
   </nav>
 
@@ -57,7 +62,6 @@ import logoMobile from '../assets/rctlogo_mobile.png';
       href="https://redbeat.stackcode.io/#/authentication/signin"
       class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded-lg text-sm lg:text-base transition-all items-center justify-center"
     >
-      <span class="lg:hidden">RB 1.0</span>
       <span class="hidden lg:inline">REDBEAT 1.0</span>
     </a>
 
@@ -65,9 +69,9 @@ import logoMobile from '../assets/rctlogo_mobile.png';
       href="http://54.37.38.27/"
       class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded-lg text-sm lg:text-base transition-all items-center justify-center"
     >
-      <span class="lg:hidden">RB 2.0</span>
       <span class="hidden lg:inline">REDBEAT 2.0</span>
     </a>
+
     <Button
       as="a"
       href="/#contact"
