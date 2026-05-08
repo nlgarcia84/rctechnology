@@ -136,3 +136,27 @@ const { action } = Astro.props;
     </div>
   </div>
 </div>
+
+<script is:inline>
+  const termsCheckbox = document.getElementById('terms-checkbox');
+  const submitButton = document.getElementById('submit-button');
+  const form = document.getElementById('form-contacto');
+
+  const syncSubmitState = () => {
+    if (!termsCheckbox || !submitButton) return;
+
+    submitButton.toggleAttribute('disabled', !termsCheckbox.checked);
+  };
+
+  termsCheckbox?.addEventListener('change', syncSubmitState);
+  syncSubmitState();
+
+  form?.addEventListener('submit', (event) => {
+    if (!termsCheckbox || !submitButton) return;
+
+    if (!termsCheckbox.checked) {
+      event.preventDefault();
+      submitButton.toggleAttribute('disabled', true);
+    }
+  });
+</script>

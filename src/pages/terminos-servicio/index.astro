@@ -15,7 +15,12 @@ const isHomePage = Astro.url.pathname === '/';
       <header
         class="border-b border-white/10 pb-8 mb-8 flex items-center justify-between gap-4"
       >
-        <h1 class="text-4xl font-bold text-white mb-0">Términos de Servicio</h1>
+        <div>
+          <h1 class="text-4xl font-bold text-white mb-2">
+            Términos y condiciones
+          </h1>
+          <p class="text-sm text-gray-400">Última actualización: Abril 2026</p>
+        </div>
         {
           !isHomePage && (
             <a
@@ -29,10 +34,37 @@ const isHomePage = Astro.url.pathname === '/';
         }
       </header>
 
-      <p class="leading-relaxed">
-        Estos son los términos de servicio de RC Technology. Aquí explicamos las
-        condiciones para usar nuestro sitio web y servicios.
-      </p>
+      <article
+        class="bg-gray-800/40 rounded-2xl p-6 mb-10 border border-white/5"
+      >
+        <section class="mb-6">
+          <h2 class="text-xl font-semibold text-white mb-2">1. Objeto</h2>
+          <p class="text-sm leading-relaxed">
+            Estas condiciones regulan el uso del sitio web y la prestación de
+            servicios por parte de RC Technology Solutions SL. Al utilizar el
+            sitio usted acepta estas condiciones.
+          </p>
+        </section>
+
+        <section class="mb-6">
+          <h2 class="text-xl font-semibold text-white mb-2">2. Acceso y uso</h2>
+          <p class="text-sm leading-relaxed">
+            El usuario se compromete a hacer un uso adecuado del sitio web y a
+            no emplearlo para fines ilícitos o contrarios a la buena fe.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white mb-2">
+            3. Responsabilidad
+          </h2>
+          <p class="text-sm leading-relaxed">
+            RC Technology no será responsable de los daños que deriven del uso
+            del sitio salvo en los casos previstos por la ley. Para consultas
+            escríbanos a rafael@rctechnology.es.
+          </p>
+        </section>
+      </article>
     </div>
   </section>
 </Layout>
