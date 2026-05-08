@@ -7,13 +7,13 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
 <header
   id="main-header"
-  class="fixed top-0 left-0 right-0 grid grid-cols-2 lg:grid-cols-3 items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 z-[120] transition-all duration-500 ease-in-out"
+  class="fixed top-0 left-0 right-0 grid grid-cols-2 lg:grid-cols-[auto_1fr_auto] items-center px-5 py-4 md:px-10 md:h-24 m-4 rounded-2xl bg-gray-900/80 backdrop-blur-md text-white border border-gray-700/50 z-[120] transition-all duration-500 ease-in-out"
 >
   <div
     id="header-logo"
     class="flex items-center justify-start transition-all duration-500 origin-left"
   >
-    <a href="/#hero" class="logo shrink-0 lg:hidden flex items-center">
+    <a href="/#hero" class="logo shrink-0 xl:hidden flex items-center">
       <Picture
         src={logoMobile}
         alt="RC Technology"
@@ -22,7 +22,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
         formats={['webp', 'png']}
       />
     </a>
-    <a href="/#hero" class="logo shrink-0 hidden lg:flex items-center">
+    <a href="/#hero" class="logo shrink-0 hidden xl:flex items-center">
       <Picture
         src={logo}
         alt="RC Technology"
@@ -53,18 +53,25 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     id="header-actions"
     class="flex gap-4 items-center justify-end transition-all duration-500 origin-right"
   >
-    <Button
-      as="a"
+    <a
       href="https://redbeat.stackcode.io/#/authentication/signin"
-      class="border border-red-700 hover:bg-red-700/20 px-5 py-2.5 rounded-xl hidden lg:block transition-all"
-      text="REDBEAT 1.0"
-    />
-    <Button
-      as="a"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded-lg text-sm lg:text-base transition-all items-center justify-center"
+    >
+      <span class="lg:hidden">RB 1.0</span>
+      <span class="hidden lg:inline">REDBEAT 1.0</span>
+    </a>
+
+    <a
       href="http://54.37.38.27/"
-      class="border border-red-700 hover:bg-red-700/20 px-5 py-2.5 rounded-xl hidden lg:block transition-all"
-      text="REDBEAT 2.0"
-    />
+      target="_blank"
+      rel="noopener noreferrer"
+      class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded-lg text-sm lg:text-base transition-all items-center justify-center"
+    >
+      <span class="lg:hidden">RB 2.0</span>
+      <span class="hidden lg:inline">REDBEAT 2.0</span>
+    </a>
     <Button
       as="a"
       href="/#contact"
@@ -177,9 +184,21 @@ import logoMobile from '../assets/rctlogo_mobile.png';
       window.addEventListener('scroll', () => {
         const isScrolled = window.scrollY > 50;
         const scaleClass = 'scale-[0.85]';
+        const isSmall = window.innerWidth < 768; // apply shrinking only on small screens
+
+        if (!isSmall) {
+          // Keep proportions from 768px upwards: ensure default header state
+          header.classList.add('md:h-24', 'py-4');
+          header.classList.remove('h-16', 'md:h-16', 'py-0');
+
+          logo?.classList.remove(scaleClass);
+          nav?.classList.remove(scaleClass);
+          actions?.classList.remove(scaleClass);
+          return;
+        }
 
         if (isScrolled) {
-          // Centrado vertical: quitamos py-4 y forzamos altura menor con items-center
+          // On small screens, shrink header slightly on scroll
           header.classList.remove('md:h-24', 'py-4');
           header.classList.add('h-16', 'md:h-16', 'py-0', 'items-center');
 
