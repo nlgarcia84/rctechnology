@@ -6,7 +6,7 @@ import appImg from '../assets/cards/app.png';
 import gadgets from '../assets/cards/gadgets.png';
 import dashboard from '../assets/cards/dashboard.png';
 import ContactForm from '../components/ContactForm.astro';
-import { supabase } from '../lib/supabaseClient';
+import { getSupabaseClient, hasSupabaseConfig } from '../lib/supabaseClient';
 import Esponsors from '../components/Esponsors.astro';
 
 const data = [
@@ -45,6 +45,11 @@ export async function formAction({ request }: any) {
     return { error: 'Todos los campos son obligatorios.' };
   }
 
+  if (!hasSupabaseConfig) {
+    return { error: 'Faltan las variables de Supabase en el entorno.' };
+  }
+
+  const supabase = getSupabaseClient();
   const { error } = await supabase
     .from('contact_messages')
     .insert([{ name, surname, email, message }]);

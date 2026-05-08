@@ -1,7 +1,12 @@
 ---
-import { actions } from 'astro:actions';
 import formimage from '../assets/formimage.png';
 import Picture from 'astro/components/Picture.astro';
+
+interface Props {
+  action?: any;
+}
+
+const { action } = Astro.props;
 ---
 
 <div class="relative w-full bg-gray-950 overflow-hidden">
@@ -47,7 +52,7 @@ import Picture from 'astro/components/Picture.astro';
     <div class="absolute inset-0 z-40 flex items-center justify-center px-4">
       <form
         method="POST"
-        action={actions.enviarContacto}
+        action={action}
         id="form-contacto"
         class="w-full max-w-lg
            bg-gray-900/30
