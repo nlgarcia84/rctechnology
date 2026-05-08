@@ -11,13 +11,7 @@ const { as = 'button', href = '', text, id, class: className } = Astro.props;
 
 {
   as === 'a' ? (
-    <a
-      href={href}
-      id={id}
-      class={`btn ${className}`}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <a href={href} id={id} class={`btn ${className}`}>
       {text}
     </a>
   ) : (
