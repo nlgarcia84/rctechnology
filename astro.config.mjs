@@ -4,7 +4,8 @@ import react from '@astrojs/react';
 
 export default defineConfig({
   output: 'server',
-  integrations: [react(), vercel()],
+  adapter: vercel(),
+  integrations: [react()],
   image: {
     // Forzamos a que use Sharp, que es lo que Astro usa por defecto en local
     service: {

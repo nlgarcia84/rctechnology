@@ -1,0 +1,63 @@
+import { c as createComponent } from './_astro_assets_zLf5wvux.mjs';
+import 'piccolore';
+import { r as renderComponent, b as renderTemplate, m as maybeRenderHead } from './entrypoint_g7PPwlsS.mjs';
+import { $ as $$Layout } from './Layout_BuF2oPAP.mjs';
+import pkg from 'lucide-react';
+
+const $$Index = createComponent(($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$props, $$slots);
+  Astro2.self = $$Index;
+  const { Home } = pkg;
+  const isHomePage = Astro2.url.pathname === "/";
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, {}, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="min-h-screen bg-gray-950 text-gray-300 px-6 sm:px-10 lg:px-20"> <div class="max-w-4xl mx-auto bg-gray-900/50 backdrop-blur-xl border border-white/10 sm:p-12 rounded-3xl shadow-2xl"> <header class="border-b border-white/10 pb-8 mb-8 flex items-center justify-between gap-4"> <div> <h1 class="text-4xl font-bold text-white mb-2">
+Política de Privacidad
+</h1> <p class="text-sm text-gray-400">Última actualización: Abril 2026</p> </div> ${!isHomePage && renderTemplate`<a href="/#hero" id="go-home" class="inline-flex items-center gap-2 rounded-xl border border-red-500/80 bg-gray-900/80 px-4 py-2 text-red-400 transition-all hover:bg-red-500/10"> ${renderComponent($$result2, "Home", Home, { "className": "w-5 h-5" })} </a>`} </header> <article class="bg-gray-800/40 rounded-2xl p-6 mb-10 border border-white/5"> <h2 class="text-xl font-semibold text-white mb-4 flex items-center"> <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
+Responsable del Tratamiento
+</h2> <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"> <p> <span class="text-gray-500 block uppercase text-xs font-bold tracking-wider">Empresa:</span> RC Technology Solutions SL.
+</p> <p> <span class="text-gray-500 block uppercase text-xs font-bold tracking-wider">CIF:</span> B56360894
+</p> <p class="md:col-span-2"> <span class="text-gray-500 block uppercase text-xs font-bold tracking-wider">Dirección:</span> Gran Vía de les Corts Catalanes 620, ático 4A, 08007 Barcelona, Spain
+</p> <p> <span class="text-gray-500 block uppercase text-xs font-bold tracking-wider">Email:</span> rafael@rctechnology.es
+</p> <p> <span class="text-gray-500 block uppercase text-xs font-bold tracking-wider">Teléfono:</span> +34 608 848 171
+</p> </div> </article> <div class="space-y-8 text-gray-300 leading-relaxed"> <section> <h2 class="text-2xl font-bold text-white mb-4">1. Finalidad</h2> <p>
+En RC Technology Solutions SL. tratamos la información que nos
+            facilitan las personas interesadas con el fin de gestionar el envío
+            de la información que nos soliciten, facilitar a los interesados
+            ofertas de productos y servicios de su interés y/o gestionar sus
+            pedidos técnicos.
+</p> </section> <section> <h2 class="text-2xl font-bold text-white mb-4">2. Legitimación</h2> <p>
+El tratamiento de sus datos se basa en el consentimiento que se le
+            solicita al completar cualquier formulario de contacto, así como en
+            la ejecución de un contrato de servicios tecnológicos si fuera el
+            caso.
+</p> </section> <section> <h2 class="text-2xl font-bold text-white mb-4">
+3. Conservación de Datos
+</h2> <p>
+Los datos personales proporcionados se conservarán mientras se
+            mantenga la relación comercial, no se solicite su supresión por el
+            interesado o durante el plazo legalmente establecido para cumplir
+            con obligaciones tributarias.
+</p> </section> <section> <h2 class="text-2xl font-bold text-white mb-4">4. Derechos</h2> <p>
+Usted tiene derecho a obtener confirmación sobre si en RC Technology
+            Solutions SL. estamos tratando sus datos personales. Tiene derecho a
+            acceder, rectificar o solicitar la supresión cuando los datos ya no
+            sean necesarios enviando un correo a <strong>rafael@rctechnology.es</strong>.
+</p> </section> <section class="border-t border-white/10 pt-8 mt-12 text-center"> <p class="text-sm text-gray-500 italic">
+Esta política cumple con el Reglamento General de Protección de
+            Datos (RGPD) y la Ley Orgánica de Protección de Datos y Garantía de
+            Derechos Digitales (LOPDGDD).
+</p> </section> </div> </div> </section> ` })}`;
+}, "/Users/normanleyvagarcia/Desktop/rctechnology/src/pages/politica-privacidad/index.astro", void 0);
+
+const $$file = "/Users/normanleyvagarcia/Desktop/rctechnology/src/pages/politica-privacidad/index.astro";
+const $$url = "/politica-privacidad";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Index,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };
