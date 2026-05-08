@@ -6,7 +6,7 @@ import appImg from '../assets/cards/app.png';
 import gadgets from '../assets/cards/gadgets.png';
 import dashboard from '../assets/cards/dashboard.png';
 import ContactForm from '../components/ContactForm.astro';
-import { supabase } from '../lib/supabaseClient';
+import { actions } from 'astro:actions';
 import Esponsors from '../components/Esponsors.astro';
 
 const data = [
@@ -33,30 +33,6 @@ const data = [
     paginaDesti: '/ventajasplataforma/',
   },
 ];
-
-export async function formAction({ request }: any) {
-  const formData = await request.formData();
-  const name = String(formData.get('name') ?? '').trim();
-  const surname = String(formData.get('surname') ?? '').trim();
-  const email = String(formData.get('email') ?? '').trim();
-  const message = String(formData.get('message') ?? '').trim();
-
-  if (!name || !surname || !email || !message) {
-    return { error: 'Todos los campos son obligatorios.' };
-  }
-
-  const { error } = await supabase
-    .from('contact_messages')
-    .insert([{ name, surname, email, message }]);
-
-  if (error) return { error: 'Error al guardar el mensaje.' };
-
-  return { success: true };
-}
-
-export const actions = {
-  contact: formAction,
-};
 ---
 
 <Layout>
