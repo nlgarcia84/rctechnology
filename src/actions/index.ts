@@ -1,20 +1,33 @@
-import { defineAction } from 'astro:actions';
+import { defineAction, ActionError } from 'astro:actions';
 import { z } from 'astro:schema';
-// Asegúrate de que este import coincida con tu export en src/lib/supabaseClient
-import { supabase } from '../lib/supabaseClient';
+import { getSupabaseClient, hasSupabaseConfig } from '../lib/supabaseClient';
+
+type ContactInput = {
+  name: string;
+  surname: string;
+  email: string;
+  message: string;
+};
 
 export const server = {
-  enviarContacto: defineAction({
+  contact: defineAction({
     accept: 'form',
     input: z.object({
-      name: z.string().min(2), // Antes era 'nombre'
-      surname: z.string().min(2), // Antes era 'apellido'
+      name: z.string().min(2),
+      surname: z.string().min(2),
       email: z.string().email(),
-      message: z.string().min(5), // Antes era 'texto'
+      message: z.string().min(5),
     }),
-    handler: async (input) => {
-      // Ahora usamos directamente los nuevos nombres del input
-      const { data, error } = await supabase.from('contact_messages').insert([
+    handler: async (input: ContactInput) => {
+      if (!hasSupabaseConfig) {
+        throw new ActionError({
+          code: 'BAD_REQUEST',
+          message: 'Faltan las variables de entorno de Supabase.',
+        });
+      }
+
+      const supabase = getSupabaseClient();
+      const { error } = await supabase.from('contact_messages').insert([
         {
           name: input.name,
           surname: input.surname,
@@ -23,7 +36,13 @@ export const server = {
         },
       ]);
 
-      if (error) throw new Error(error.message);
+      if (error) {
+        throw new ActionError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: error.message,
+        });
+      }
+
       return { success: true };
     },
   }),
