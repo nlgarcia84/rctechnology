@@ -137,26 +137,59 @@ const { action } = Astro.props;
   </div>
 </div>
 
-<script is:inline>
-  const termsCheckbox = document.getElementById('terms-checkbox');
-  const submitButton = document.getElementById('submit-button');
-  const form = document.getElementById('form-contacto');
+<script>
+  import { actions } from 'astro:actions';
+
+  const termsCheckbox = document.getElementById(
+    'terms-checkbox',
+  ) as HTMLInputElement | null;
+  const submitButton = document.getElementById(
+    'submit-button',
+  ) as HTMLButtonElement | null;
+  const form = document.getElementById(
+    'form-contacto',
+  ) as HTMLFormElement | null;
+  const formMessageElement = document.getElementById(
+    'form-message',
+  ) as HTMLDivElement | null;
+
+  if (!termsCheckbox || !submitButton || !form || !formMessageElement) {
+    throw new Error('Contact form elements were not found.');
+  }
 
   const syncSubmitState = () => {
-    if (!termsCheckbox || !submitButton) return;
-
     submitButton.toggleAttribute('disabled', !termsCheckbox.checked);
   };
 
-  termsCheckbox?.addEventListener('change', syncSubmitState);
+  termsCheckbox.addEventListener('change', syncSubmitState);
   syncSubmitState();
 
-  form?.addEventListener('submit', (event) => {
-    if (!termsCheckbox || !submitButton) return;
-
+  form.addEventListener('submit', async (event) => {
     if (!termsCheckbox.checked) {
       event.preventDefault();
       submitButton.toggleAttribute('disabled', true);
+      formMessageElement.textContent =
+        'Debes aceptar la política de privacidad.';
+      return;
+    }
+
+    event.preventDefault();
+    submitButton.disabled = true;
+    formMessageElement.textContent = 'Enviando...';
+
+    try {
+      const formData = new FormData(form);
+      const result = await actions.contact(formData);
+
+      if (result.data) {
+        formMessageElement.textContent = 'Mensaje enviado con éxito!';
+      } else {
+        formMessageElement.textContent = 'Se produjo un error :(';
+      }
+    } catch {
+      formMessageElement.textContent = 'Se produjo un error :(';
+    } finally {
+      syncSubmitState();
     }
   });
 </script>
