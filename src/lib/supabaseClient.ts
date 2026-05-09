@@ -37,6 +37,12 @@ const publishableKey =
 export const publicSupabase =
   publicUrl && publishableKey ? createClient(publicUrl, publishableKey) : null;
 
+export const hasSupabaseConfig = Boolean(publicUrl && publishableKey);
+
+export function getSupabaseClient() {
+  return getPublicSupabase();
+}
+
 /**
  * Crea y devuelve un cliente admin/server-side usando la clave secreta.
  * USO: solo desde endpoints (server). No importes la clave secreta en código cliente.
