@@ -3,69 +3,122 @@ import LoginLayout from '../../layouts/LoginLayout.astro';
 ---
 
 <LoginLayout>
-  <div class="relative w-full bg-gray-950 overflow-hidden">
+  <div class="relative min-h-screen overflow-hidden bg-[#05070d]">
     <div
-      class="relative min-h-screen w-full flex items-center justify-center px-4 py-8"
+      class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(220,38,38,0.18),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(255,255,255,0.10),_transparent_22%),radial-gradient(circle_at_bottom,_rgba(255,255,255,0.06),_transparent_26%)]"
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(5,7,13,0.1),rgba(5,7,13,0.65))]"
+    >
+    </div>
+
+    <div
+      class="relative min-h-screen w-full px-4 py-10 sm:px-6 flex items-center justify-center"
     >
       <form
         method="POST"
         action="/api/login"
         id="form-login"
-        class="w-full max-w-lg
-        bg-gray-900/30
-        backdrop-blur-2xl
-        rounded-2xl
-        shadow-[0_20px_80px_rgba(0,0,0,0.6)]
-        border border-white/10
-        p-6 sm:p-8
-        flex flex-col gap-6
-        my-8
-        hover:scale-100 transition-all duration-300"
+        class="w-full max-w-xl rounded-[2rem] border border-white/10 bg-white/6 p-6 sm:p-8 md:p-10 shadow-[0_30px_120px_rgba(0,0,0,0.55)] backdrop-blur-xl"
       >
-        <div class="flex flex-col gap-1.5 text-center">
-          <h1 class="text-3xl sm:text-4xl font-semibold text-white pb-5">
-            Bienvenido Admin
-          </h1>
-
-          <p class="text-white/70 text-sm pb-5">
-            Inicia sesión para consultar los contactos.
-          </p>
-        </div>
-
-        <div class="flex flex-col gap-1.5">
-          <label class="text-white/90 text-sm pb-2 text-center"
-            >Correo Electrónico</label
+        <div class="mb-8 flex items-start justify-between gap-4">
+          <div>
+            <div
+              class="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-red-200/90"
+            >
+              Admin Access
+            </div>
+            <h2
+              class="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-white"
+            >
+              Bienvenido Admin
+            </h2>
+            <p class="mt-3 max-w-xl text-sm leading-6 text-white/65">
+              Inicia sesión para consultar los contactos y operar el dashboard
+              con acceso seguro.
+            </p>
+          </div>
+          <div
+            class="hidden sm:flex h-12 w-12 items-center justify-center rounded-2xl border border-red-500/25 bg-red-500/10 text-red-200 shadow-[0_10px_30px_rgba(220,38,38,0.18)]"
           >
-          <input
-            type="email"
-            name="email"
-            class="w-full p-2 rounded-lg bg-gray-800/70 border border-white/10 text-white focus:outline-none focus:border-red-500"
-            required
-            autocomplete="email"
-          />
+            <span class="text-xl">⌘</span>
+          </div>
         </div>
 
-        <div class="flex flex-col gap-1.5">
-          <label class="text-white/90 text-sm pb-2 text-center"
-            >Contraseña</label
-          >
-          <input
-            type="password"
-            name="password"
-            class="w-full p-2 rounded-lg bg-gray-800/70 border border-white/10 text-white focus:outline-none focus:border-red-500"
-            required
-            autocomplete="current-password"
-          />
+        <div class="space-y-5">
+          <div class="flex flex-col gap-2.5">
+            <label class="text-sm font-medium text-white/85" for="email"
+              >Correo electrónico</label
+            >
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="w-full rounded-2xl border border-white/10 bg-gray-900/70 px-4 py-3.5 text-white placeholder:text-white/25 outline-none transition focus:border-red-500/70 focus:bg-gray-900 focus:ring-4 focus:ring-red-500/10"
+              placeholder="admin@rctechnology.es"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2.5">
+            <label class="text-sm font-medium text-white/85" for="password"
+              >Contraseña</label
+            >
+            <div class="relative">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="w-full rounded-2xl border border-white/10 bg-gray-900/70 px-4 py-3.5 pr-12 text-white placeholder:text-white/25 outline-none transition focus:border-red-500/70 focus:bg-gray-900 focus:ring-4 focus:ring-red-500/10"
+                placeholder="Introduce tu contraseña"
+                required
+                autocomplete="current-password"
+              />
+              <button
+                type="button"
+                id="toggle-password"
+                class="absolute inset-y-0 right-0 flex items-center justify-center px-4 text-white/45 transition hover:text-white"
+                aria-label="Mostrar u ocultar contraseña"
+                aria-pressed="false"
+              >
+                <span id="toggle-password-icon" class="text-sm">👁</span>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <button
-          id="submit-button"
-          type="submit"
-          class="bg-red-600 hover:bg-red-700 text-white font-medium py-3 rounded-xl disabled:opacity-50 transition-all"
+        <div
+          class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
         >
-          Entrar
-        </button>
+          <p class="text-xs leading-5 text-white/45">
+            Acceso restringido al equipo autorizado.
+          </p>
+          <button
+            id="submit-button"
+            type="submit"
+            class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 font-medium text-white shadow-[0_18px_40px_rgba(220,38,38,0.26)] transition hover:translate-y-[-1px] hover:from-red-500 hover:to-red-400 active:translate-y-0 disabled:opacity-50"
+          >
+            Entrar
+          </button>
+        </div>
       </form>
     </div>
   </div>
 </LoginLayout>
+
+<script>
+  const passwordInput = document.getElementById('password');
+  const toggleButton = document.getElementById('toggle-password');
+  const toggleIcon = document.getElementById('toggle-password-icon');
+
+  if (passwordInput && toggleButton && toggleIcon) {
+    toggleButton.addEventListener('click', () => {
+      const isPassword = passwordInput.getAttribute('type') === 'password';
+      passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+      toggleButton.setAttribute('aria-pressed', String(isPassword));
+      toggleIcon.textContent = isPassword ? '🙈' : '👁';
+    });
+  }
+</script>
