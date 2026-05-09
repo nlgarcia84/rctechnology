@@ -31,22 +31,15 @@ const filterDate = url.searchParams.get('filterDate') || '';
 
 let contacts: Contact[] = [];
 let error = '';
-let debugInfo = '';
 
 try {
-  console.log('[DEBUG] Iniciando carga de contactos...');
   const authClient = getPublicSupabase();
   const { data: userData, error: userError } =
     await authClient.auth.getUser(authToken);
 
-  console.log('[DEBUG] userError:', userError);
-  console.log('[DEBUG] userData:', userData);
-
   if (userError || !userData.user) {
     error = 'Sesión expirada.';
-    debugInfo = `userError: ${userError?.message || 'null'}, userData: ${userData ? 'ok' : 'null'}`;
   } else {
-    console.log('[DEBUG] Usuario autenticado:', userData.user.id);
     const adminClient = getAdminSupabase();
     const { data: adminRow, error: adminError } = await adminClient
       .from('admin_users')
@@ -54,26 +47,16 @@ try {
       .eq('user_id', userData.user.id)
       .maybeSingle();
 
-    console.log('[DEBUG] adminError:', adminError);
-    console.log('[DEBUG] adminRow:', adminRow);
-
     if (adminError || !adminRow) {
       error = 'No tienes permisos de administrador.';
-      debugInfo = `adminError: ${adminError?.message || 'null'}, adminRow: ${adminRow ? 'ok' : 'null'}`;
     } else {
-      console.log('[DEBUG] Usuario es admin, cargando contactos...');
       const { data, error: contactsError } = await adminClient
         .from('contact_messages')
         .select('id,name,email,message,created_at')
         .order('created_at', { ascending: false });
 
-      console.log('[DEBUG] contactsError:', contactsError);
-      console.log('[DEBUG] contactos encontrados:', data?.length || 0);
-      console.log('[DEBUG] data:', data);
-
       if (contactsError) {
         error = 'Error al cargar contactos.';
-        debugInfo = `contactsError: ${contactsError.message}`;
       } else {
         let filtered = data ?? [];
 
@@ -96,14 +79,11 @@ try {
         }
 
         contacts = filtered;
-        console.log('[DEBUG] contactos finales:', contacts.length);
       }
     }
   }
 } catch (_err) {
   error = 'Error de conexión.';
-  debugInfo = `catch error: ${_err}`;
-  console.error('[DEBUG] Error:', _err);
 }
 
 function formatDate(dateString: string): string {
@@ -140,10 +120,7 @@ function formatDate(dateString: string): string {
     {
       error && (
         <div class="mb-6 p-4 bg-red-600/20 border border-red-500 rounded-lg text-red-400">
-          <div>{error}</div>
-          {debugInfo && (
-            <div class="text-xs mt-2 opacity-70">Debug: {debugInfo}</div>
-          )}
+          {error}
         </div>
       )
     }
