@@ -1,5 +1,6 @@
 ---
 import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import { getAdminSupabase, getPublicSupabase } from '../../lib/supabaseClient';
 
 interface Contact {
   id: string;
@@ -26,48 +27,62 @@ if (!authToken) {
 const url = new URL(Astro.request.url);
 const filterName = url.searchParams.get('filterName') || '';
 const filterEmail = url.searchParams.get('filterEmail') || '';
+const filterDate = url.searchParams.get('filterDate') || '';
 
 let contacts: Contact[] = [];
 let error = '';
 
 try {
-  const apiUrl = new URL(
-    '/api/dashboard/contacts?page=1&per_page=100',
-    Astro.url.origin,
-  ).toString();
-  const response = await fetch(apiUrl, {
-    headers: { Authorization: `Bearer ${authToken}` },
-  });
+  const authClient = getPublicSupabase();
+  const { data: userData, error: userError } =
+    await authClient.auth.getUser(authToken);
 
-  if (response.ok) {
-    const data: ApiResponse = await response.json();
-    let filtered = data.data;
-
-    // Aplicar filtros
-    if (filterName) {
-      filtered = filtered.filter((c) =>
-        c.name.toLowerCase().includes(filterName.toLowerCase()),
-      );
-    }
-    if (filterEmail) {
-      filtered = filtered.filter((c) =>
-        c.email.toLowerCase().includes(filterEmail.toLowerCase()),
-      );
-    }
-
-    // Ordenar por más recientes primero
-    filtered.sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    );
-
-    contacts = filtered;
-  } else if (response.status === 401) {
+  if (userError || !userData.user) {
     error = 'Sesión expirada.';
   } else {
-    error = 'Error al cargar contactos.';
+    const adminClient = getAdminSupabase();
+    const { data: adminRow, error: adminError } = await adminClient
+      .from('admin_users')
+      .select('user_id')
+      .eq('user_id', userData.user.id)
+      .maybeSingle();
+
+    if (adminError || !adminRow) {
+      error = 'No tienes permisos de administrador.';
+    } else {
+      const { data, error: contactsError } = await adminClient
+        .from('contact_messages')
+        .select('id,name,email,message,created_at')
+        .order('created_at', { ascending: false });
+
+      if (contactsError) {
+        error = 'Error al cargar contactos.';
+      } else {
+        let filtered = data ?? [];
+
+        if (filterName) {
+          filtered = filtered.filter((c) =>
+            c.name.toLowerCase().includes(filterName.toLowerCase()),
+          );
+        }
+
+        if (filterEmail) {
+          filtered = filtered.filter((c) =>
+            c.email.toLowerCase().includes(filterEmail.toLowerCase()),
+          );
+        }
+
+        if (filterDate) {
+          filtered = filtered.filter(
+            (c) => c.created_at.slice(0, 10) === filterDate,
+          );
+        }
+
+        contacts = filtered;
+      }
+    }
   }
-} catch (err) {
+} catch (_err) {
   error = 'Error de conexión.';
 }
 
@@ -126,6 +141,12 @@ function formatDate(dateString: string): string {
         value={filterEmail}
         class="flex-1 px-4 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:outline-none focus:border-white/50"
       />
+      <input
+        type="date"
+        name="filterDate"
+        value={filterDate}
+        class="px-4 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:outline-none focus:border-white/50"
+      />
       <button
         type="submit"
         class="px-6 py-2 bg-white/10 text-white border border-white/20 rounded-lg hover:bg-white/20 transition"
@@ -133,7 +154,7 @@ function formatDate(dateString: string): string {
         Filtrar
       </button>
       {
-        (filterName || filterEmail) && (
+        (filterName || filterEmail || filterDate) && (
           <a
             href="/dashboard"
             class="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition"
