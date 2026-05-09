@@ -13,10 +13,26 @@ export const server = {
   contact: defineAction({
     accept: 'form',
     input: z.object({
-      name: z.string().min(2),
-      surname: z.string().min(2),
-      email: z.string().email(),
-      message: z.string().min(5),
+      name: z
+        .string()
+        .trim()
+        .min(1, { message: 'El nombre es obligatorio.' })
+        .min(2, { message: 'El nombre debe tener al menos 2 caracteres.' }),
+      surname: z
+        .string()
+        .trim()
+        .min(1, { message: 'El apellido es obligatorio.' })
+        .min(2, { message: 'El apellido debe tener al menos 2 caracteres.' }),
+      email: z
+        .string()
+        .trim()
+        .min(1, { message: 'El correo es obligatorio.' })
+        .pipe(z.email({ message: 'Introduce un correo valido.' })),
+      message: z
+        .string()
+        .trim()
+        .min(1, { message: 'El mensaje es obligatorio.' })
+        .min(5, { message: 'El mensaje debe tener al menos 5 caracteres.' }),
     }),
     handler: async (input: ContactInput) => {
       if (!hasSupabaseConfig) {

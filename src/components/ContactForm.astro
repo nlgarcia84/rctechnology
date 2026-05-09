@@ -186,7 +186,25 @@ const { action } = Astro.props;
       if (result.data) {
         formMessageElement.textContent = 'Mensaje enviado con éxito!';
       } else {
-        formMessageElement.textContent = 'Se produjo un error :(';
+        const error = result.error as
+          | {
+              fields?: Record<string, string[] | undefined>;
+              message?: string;
+            }
+          | undefined;
+        const fieldMessages = error?.fields
+          ? Object.values(error.fields)
+              .flat()
+              .filter((message): message is string => Boolean(message))
+          : [];
+
+        if (fieldMessages.length > 0) {
+          formMessageElement.textContent = fieldMessages.join(' ');
+        } else if (error?.message) {
+          formMessageElement.textContent = error.message;
+        } else {
+          formMessageElement.textContent = 'Se produjo un error :(';
+        }
       }
     } catch {
       formMessageElement.textContent = 'Se produjo un error :(';

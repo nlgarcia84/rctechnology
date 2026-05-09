@@ -1,0 +1,318 @@
+---
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+interface Contact {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  created_at: string;
+}
+
+interface ApiResponse {
+  data: Contact[];
+  meta: {
+    page: number;
+    per_page: number;
+    total: number;
+  };
+}
+
+const authToken = Astro.cookies.get('auth_token')?.value;
+if (!authToken) {
+  return Astro.redirect('/login');
+}
+
+const url = new URL(Astro.request.url);
+const filterName = url.searchParams.get('filterName') || '';
+const filterEmail = url.searchParams.get('filterEmail') || '';
+
+let contacts: Contact[] = [];
+let error = '';
+
+try {
+  const apiUrl = new URL(
+    '/api/dashboard/contacts?page=1&per_page=100',
+    Astro.url.origin,
+  ).toString();
+  const response = await fetch(apiUrl, {
+    headers: { Authorization: `Bearer ${authToken}` },
+  });
+
+  if (response.ok) {
+    const data: ApiResponse = await response.json();
+    let filtered = data.data;
+
+    // Aplicar filtros
+    if (filterName) {
+      filtered = filtered.filter((c) =>
+        c.name.toLowerCase().includes(filterName.toLowerCase()),
+      );
+    }
+    if (filterEmail) {
+      filtered = filtered.filter((c) =>
+        c.email.toLowerCase().includes(filterEmail.toLowerCase()),
+      );
+    }
+
+    // Ordenar por más recientes primero
+    filtered.sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    );
+
+    contacts = filtered;
+  } else if (response.status === 401) {
+    error = 'Sesión expirada.';
+  } else {
+    error = 'Error al cargar contactos.';
+  }
+} catch (err) {
+  error = 'Error de conexión.';
+}
+
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+---
+
+<DashboardLayout>
+  <div class="min-h-screen bg-gray-950 p-4 sm:p-8">
+    <!-- Header -->
+    <div class="mb-8 flex items-center justify-between">
+      <div>
+        <h1 class="text-3xl font-bold text-white">Contactos</h1>
+        <p class="text-white/60 text-sm mt-2">
+          Total: <span class="text-white font-semibold">{contacts.length}</span>
+        </p>
+      </div>
+      <form action="/api/logout" method="POST">
+        <button
+          type="submit"
+          class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+        >
+          Logout
+        </button>
+      </form>
+    </div>
+
+    {
+      error && (
+        <div class="mb-6 p-4 bg-red-600/20 border border-red-500 rounded-lg text-red-400">
+          {error}
+        </div>
+      )
+    }
+
+    <!-- Filtros -->
+    <form method="get" class="mb-8 flex flex-col sm:flex-row gap-3">
+      <input
+        type="text"
+        name="filterName"
+        placeholder="Filtrar por nombre..."
+        value={filterName}
+        class="flex-1 px-4 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:outline-none focus:border-white/50"
+      />
+      <input
+        type="email"
+        name="filterEmail"
+        placeholder="Filtrar por email..."
+        value={filterEmail}
+        class="flex-1 px-4 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:outline-none focus:border-white/50"
+      />
+      <button
+        type="submit"
+        class="px-6 py-2 bg-white/10 text-white border border-white/20 rounded-lg hover:bg-white/20 transition"
+      >
+        Filtrar
+      </button>
+      {
+        (filterName || filterEmail) && (
+          <a
+            href="/dashboard"
+            class="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition"
+          >
+            Limpiar
+          </a>
+        )
+      }
+    </form>
+
+    <!-- Tabla -->
+    {
+      contacts.length > 0 ? (
+        <div class="overflow-x-auto rounded-lg border border-white/10">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-900">
+              <tr>
+                <th class="px-4 py-3 text-left text-white/80">Nombre</th>
+                <th class="px-4 py-3 text-left text-white/80">Email</th>
+                <th class="px-4 py-3 text-left text-white/80">Mensaje</th>
+                <th class="px-4 py-3 text-left text-white/80">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contacts.map((contact) => (
+                <tr
+                  class="border-t border-white/5 hover:bg-gray-900/50 cursor-pointer clickable-row transition"
+                  data-name={contact.name}
+                  data-email={contact.email}
+                  data-message={contact.message}
+                  data-date={contact.created_at}
+                >
+                  <td class="px-4 py-3 text-white font-medium">
+                    {contact.name}
+                  </td>
+                  <td class="px-4 py-3 text-white/70">{contact.email}</td>
+                  <td class="px-4 py-3 text-white/60 max-w-xs truncate">
+                    {contact.message}
+                  </td>
+                  <td class="px-4 py-3 text-white/60">
+                    {formatDate(contact.created_at)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div class="text-center py-12 text-white/60">No hay contactos.</div>
+      )
+    }
+
+    <!-- Modal -->
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black/50 z-50 items-center justify-center p-4"
+      style="display: none;"
+    >
+      <div
+        class="bg-gray-900 rounded-lg border border-white/20 max-w-2xl w-full"
+      >
+        <div
+          class="bg-gray-800/80 border-b border-white/10 px-6 py-4 flex items-center justify-between"
+        >
+          <h2 class="text-xl font-bold text-white">Detalles del Contacto</h2>
+          <button
+            type="button"
+            onclick="document.getElementById('modal').style.display='none'"
+            class="text-white/60 hover:text-white text-2xl"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="p-6 space-y-4 max-h-96 overflow-y-auto">
+          <div>
+            <label class="text-white/60 text-sm">Nombre</label>
+            <p id="modalName" class="text-white mt-1 font-medium"></p>
+          </div>
+          <div>
+            <label class="text-white/60 text-sm">Email</label>
+            <p class="text-white mt-1">
+              <a
+                id="modalEmailLink"
+                href="#"
+                class="text-blue-400 hover:text-blue-300"></a>
+            </p>
+          </div>
+          <div>
+            <label class="text-white/60 text-sm">Mensaje</label>
+            <div
+              id="modalMessage"
+              class="text-white/80 mt-2 p-3 bg-gray-800/50 rounded-lg border border-white/5 whitespace-pre-wrap break-words max-h-40 overflow-y-auto"
+            >
+            </div>
+          </div>
+          <div>
+            <label class="text-white/60 text-sm">Fecha</label>
+            <p id="modalDate" class="text-white/70 text-sm mt-1"></p>
+          </div>
+        </div>
+        <div class="bg-gray-800/50 border-t border-white/10 px-6 py-4">
+          <button
+            type="button"
+            onclick="document.getElementById('modal').style.display='none'"
+            class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('modal') as HTMLDivElement | null;
+    const modalName = document.getElementById(
+      'modalName',
+    ) as HTMLParagraphElement | null;
+    const modalEmailLink = document.getElementById(
+      'modalEmailLink',
+    ) as HTMLAnchorElement | null;
+    const modalMessage = document.getElementById(
+      'modalMessage',
+    ) as HTMLDivElement | null;
+    const modalDate = document.getElementById(
+      'modalDate',
+    ) as HTMLParagraphElement | null;
+
+    if (
+      !modal ||
+      !modalName ||
+      !modalEmailLink ||
+      !modalMessage ||
+      !modalDate
+    ) {
+      return;
+    }
+
+    const showModal = (row: HTMLTableRowElement) => {
+      const name = row.dataset.name ?? '';
+      const email = row.dataset.email ?? '';
+      const message = row.dataset.message ?? '';
+      const dateValue = row.dataset.date ?? '';
+
+      modalName.textContent = name;
+      modalEmailLink.textContent = email;
+      modalEmailLink.href = `mailto:${email}`;
+      modalMessage.textContent = message;
+      modalDate.textContent = dateValue
+        ? new Date(dateValue).toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          })
+        : '';
+
+      modal.style.display = 'flex';
+    };
+
+    document
+      .querySelectorAll<HTMLTableRowElement>('.clickable-row')
+      .forEach((row) => {
+        row.addEventListener('click', () => showModal(row));
+      });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        modal.style.display = 'none';
+      }
+    });
+  });
+</script>
