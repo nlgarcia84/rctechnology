@@ -31,15 +31,22 @@ const filterDate = url.searchParams.get('filterDate') || '';
 
 let contacts: Contact[] = [];
 let error = '';
+let debugInfo = '';
 
 try {
+  console.log('[DEBUG] Iniciando carga de contactos...');
   const authClient = getPublicSupabase();
   const { data: userData, error: userError } =
     await authClient.auth.getUser(authToken);
 
+  console.log('[DEBUG] userError:', userError);
+  console.log('[DEBUG] userData:', userData);
+
   if (userError || !userData.user) {
     error = 'Sesión expirada.';
+    debugInfo = `userError: ${userError?.message || 'null'}, userData: ${userData ? 'ok' : 'null'}`;
   } else {
+    console.log('[DEBUG] Usuario autenticado:', userData.user.id);
     const adminClient = getAdminSupabase();
     const { data: adminRow, error: adminError } = await adminClient
       .from('admin_users')
@@ -47,16 +54,26 @@ try {
       .eq('user_id', userData.user.id)
       .maybeSingle();
 
+    console.log('[DEBUG] adminError:', adminError);
+    console.log('[DEBUG] adminRow:', adminRow);
+
     if (adminError || !adminRow) {
       error = 'No tienes permisos de administrador.';
+      debugInfo = `adminError: ${adminError?.message || 'null'}, adminRow: ${adminRow ? 'ok' : 'null'}`;
     } else {
+      console.log('[DEBUG] Usuario es admin, cargando contactos...');
       const { data, error: contactsError } = await adminClient
         .from('contact_messages')
         .select('id,name,email,message,created_at')
         .order('created_at', { ascending: false });
 
+      console.log('[DEBUG] contactsError:', contactsError);
+      console.log('[DEBUG] contactos encontrados:', data?.length || 0);
+      console.log('[DEBUG] data:', data);
+
       if (contactsError) {
         error = 'Error al cargar contactos.';
+        debugInfo = `contactsError: ${contactsError.message}`;
       } else {
         let filtered = data ?? [];
 
@@ -79,11 +96,14 @@ try {
         }
 
         contacts = filtered;
+        console.log('[DEBUG] contactos finales:', contacts.length);
       }
     }
   }
 } catch (_err) {
   error = 'Error de conexión.';
+  debugInfo = `catch error: ${_err}`;
+  console.error('[DEBUG] Error:', _err);
 }
 
 function formatDate(dateString: string): string {
@@ -120,28 +140,37 @@ function formatDate(dateString: string): string {
     {
       error && (
         <div class="mb-6 p-4 bg-red-600/20 border border-red-500 rounded-lg text-red-400">
-          {error}
+          <div>{error}</div>
+          {debugInfo && (
+            <div class="text-xs mt-2 opacity-70">Debug: {debugInfo}</div>
+          )}
         </div>
       )
     }
 
     <!-- Filtros -->
     <form method="get" class="mb-8 flex flex-col sm:flex-row gap-3">
+      <label for="filterName" class="sr-only">Filtrar por nombre</label>
       <input
+        id="filterName"
         type="text"
         name="filterName"
         placeholder="Filtrar por nombre..."
         value={filterName}
         class="flex-1 px-4 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:outline-none focus:border-white/50"
       />
+      <label for="filterEmail" class="sr-only">Filtrar por email</label>
       <input
+        id="filterEmail"
         type="email"
         name="filterEmail"
         placeholder="Filtrar por email..."
         value={filterEmail}
         class="flex-1 px-4 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:outline-none focus:border-white/50"
       />
+      <label for="filterDate" class="sr-only">Filtrar por fecha</label>
       <input
+        id="filterDate"
         type="date"
         name="filterDate"
         value={filterDate}
@@ -230,11 +259,11 @@ function formatDate(dateString: string): string {
         </div>
         <div class="p-6 space-y-4 max-h-96 overflow-y-auto">
           <div>
-            <label class="text-white/60 text-sm">Nombre</label>
+            <div class="text-white/60 text-sm font-medium">Nombre</div>
             <p id="modalName" class="text-white mt-1 font-medium"></p>
           </div>
           <div>
-            <label class="text-white/60 text-sm">Email</label>
+            <div class="text-white/60 text-sm font-medium">Email</div>
             <p class="text-white mt-1">
               <a
                 id="modalEmailLink"
@@ -243,7 +272,7 @@ function formatDate(dateString: string): string {
             </p>
           </div>
           <div>
-            <label class="text-white/60 text-sm">Mensaje</label>
+            <div class="text-white/60 text-sm font-medium">Mensaje</div>
             <div
               id="modalMessage"
               class="text-white/80 mt-2 p-3 bg-gray-800/50 rounded-lg border border-white/5 whitespace-pre-wrap break-words max-h-40 overflow-y-auto"
@@ -251,7 +280,7 @@ function formatDate(dateString: string): string {
             </div>
           </div>
           <div>
-            <label class="text-white/60 text-sm">Fecha</label>
+            <div class="text-white/60 text-sm font-medium">Fecha</div>
             <p id="modalDate" class="text-white/70 text-sm mt-1"></p>
           </div>
         </div>

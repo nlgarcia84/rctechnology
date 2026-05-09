@@ -68,8 +68,9 @@ const { action } = Astro.props;
            hover:scale-100 transition-all duration-300"
       >
         <div class="flex flex-col gap-1.5">
-          <label class="text-white/90 text-sm">Nombre</label>
+          <label for="form-name" class="text-white/90 text-sm">Nombre</label>
           <input
+            id="form-name"
             type="text"
             name="name"
             class="w-full p-2 rounded-lg bg-gray-800/70 border border-white/10 text-white focus:outline-none focus:border-red-500"
@@ -78,8 +79,11 @@ const { action } = Astro.props;
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <label class="text-white/90 text-sm">Apellido</label>
+          <label for="form-surname" class="text-white/90 text-sm"
+            >Apellido</label
+          >
           <input
+            id="form-surname"
             type="text"
             name="surname"
             class="w-full p-2 rounded-lg bg-gray-800/70 border border-white/10 text-white focus:outline-none focus:border-red-500"
@@ -88,8 +92,11 @@ const { action } = Astro.props;
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <label class="text-white/90 text-sm">Correo Electrónico</label>
+          <label for="form-email" class="text-white/90 text-sm"
+            >Correo Electrónico</label
+          >
           <input
+            id="form-email"
             type="email"
             name="email"
             class="w-full p-2 rounded-lg bg-gray-800/70 border border-white/10 text-white focus:outline-none focus:border-red-500"
@@ -98,15 +105,20 @@ const { action } = Astro.props;
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <label class="text-white/90 text-sm">Mensaje</label>
+          <label for="form-message" class="text-white/90 text-sm">Mensaje</label
+          >
           <textarea
+            id="form-message"
             name="message"
             rows="4"
             class="w-full p-2 rounded-lg bg-gray-800/70 border border-white/10 text-white focus:outline-none focus:border-red-500"
             required></textarea>
         </div>
 
-        <label class="text-white flex items-center gap-2 text-sm">
+        <label
+          for="terms-checkbox"
+          class="text-white flex items-center gap-2 text-sm"
+        >
           <input
             type="checkbox"
             id="terms-checkbox"
