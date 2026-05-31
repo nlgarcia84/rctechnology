@@ -92,7 +92,7 @@ const data = [
   <div class="h-20 bg-gradient-to-b from-gray-950 to-transparent"></div>
 
   <!-- INTRO -->
-  <div class="text-center px-5">
+  <div id="productos" data-reveal class="text-center px-5">
     <span
       class="text-4xl md:text-5xl text-center my-20 font-thin tracking-tight"
     >
@@ -101,7 +101,7 @@ const data = [
   </div>
 
   <h2
-    id="productos"
+    data-reveal
     class="text-4xl md:text-xl lg:text-5xl text-center my-20 font-semibold tracking-tight"
   >
     Nuestros productos
@@ -170,9 +170,11 @@ const data = [
 
     <!-- CONTENIDO -->
     <div
+      data-reveal
       class="relative z-40 flex flex-col items-center justify-center h-full text-center px-8"
     >
       <h2
+        data-reveal
         class="text-4xl md:text-4xl lg:text-5xl text-center my-20 font-semibold tracking-tight"
       >
         Sobre Nosotros
@@ -191,6 +193,7 @@ const data = [
 
   <!-- CONTACTO -->
   <h2
+    data-reveal
     id="contact"
     class="text-4xl md:text-4xl lg:text-5xl text-center my-20 font-semibold tracking-tight"
   >
@@ -201,22 +204,25 @@ const data = [
 
   <!-- SPONSORS -->
   <h2
+    data-reveal
     class="text-3xl md:text-4xl lg:text-5xl text-center my-20 font-semibold tracking-tight"
   >
     Con el apoyo de
   </h2>
 
-  <Soporte />
+  <div data-reveal><Soporte /></div>
   <h2
+    data-reveal
     class="text-3xl md:text-4xl lg:text-5xl text-center my-20 font-semibold tracking-tight"
   >
     Colaboraciones
   </h2>
-  <Colaboraciones />
+  <div data-reveal><Colaboraciones /></div>
   <h2
+    data-reveal
     class="text-3xl md:text-4xl lg:text-5xl text-center my-20 font-semibold tracking-tight"
   >
     Proyecto subvencionado por
   </h2>
-  <Subvenciones />
+  <div data-reveal><Subvenciones /></div>
 </Layout>

@@ -9,3 +9,16 @@
 html {
   scroll-behavior: smooth;
 }
+
+.shadow-glow {
+  box-shadow: 0 0 12px rgba(220, 38, 38, 0.6), 0 0 40px rgba(220, 38, 38, 0.2);
+}
+
+button:focus-visible,
+a:focus-visible,
+.btn:focus-visible,
+[class*="bg-red"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.4), 0 0 20px rgba(220, 38, 38, 0.3);
+  transition: box-shadow 0.2s ease;
+}

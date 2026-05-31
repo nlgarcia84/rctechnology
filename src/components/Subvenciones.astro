@@ -1,15 +1,20 @@
 ---
 import { Image } from 'astro:assets';
 import logoCdti from '../assets/sponsors/logo_cdti.webp';
-
-const isMobile = true;
+import logoEnisa from '../assets/sponsors/logo_enisa.webp';
 ---
 
 <div class="flex flex-row justify-center gap-2 mb-2">
   <Image
     src={logoCdti}
     alt="Logo CDTI"
-    format="webp"
-    class="w-[100px] h-auto sm:w-[150px] md:w-[192px]"
+    class="w-auto h-[40px] sm:h-[50px] md:h-[55px] object-contain"
+  />
+</div>
+<div class="flex flex-row justify-center gap-2 mb-2">
+  <Image
+    src={logoEnisa}
+    alt="Logo ENISA"
+    class="w-auto h-[40px] sm:h-[50px] md:h-[55px] object-contain"
   />
 </div>
