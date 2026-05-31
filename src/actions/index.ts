@@ -1,5 +1,6 @@
 import { defineAction, ActionError } from 'astro:actions';
 import { z } from 'astro:schema';
+import { Resend } from 'resend';
 import { getSupabaseClient, hasSupabaseConfig } from '../lib/supabaseClient';
 
 type ContactInput = {
@@ -43,7 +44,7 @@ export const server = {
       }
 
       const supabase = getSupabaseClient();
-      const { error } = await supabase.from('contact_messages').insert([
+      const { error: dbError } = await supabase.from('contact_messages').insert([
         {
           name: input.name,
           surname: input.surname,
@@ -52,11 +53,31 @@ export const server = {
         },
       ]);
 
-      if (error) {
+      if (dbError) {
         throw new ActionError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: error.message,
+          message: dbError.message,
         });
+      }
+
+      if (import.meta.env.RESEND_API_KEY) {
+        try {
+          const resend = new Resend(import.meta.env.RESEND_API_KEY);
+          await resend.emails.send({
+            from: import.meta.env.CONTACT_EMAIL_FROM ?? 'onboarding@resend.dev',
+            to: import.meta.env.CONTACT_EMAIL_TO,
+            subject: `Nuevo mensaje de ${input.name} ${input.surname}`,
+            html: `
+              <h2>Nuevo mensaje de contacto</h2>
+              <p><strong>Nombre:</strong> ${input.name} ${input.surname}</p>
+              <p><strong>Email:</strong> ${input.email}</p>
+              <p><strong>Mensaje:</strong></p>
+              <p>${input.message}</p>
+            `,
+          });
+        } catch (emailError) {
+          console.error('Error al enviar email:', emailError);
+        }
       }
 
       return { success: true };

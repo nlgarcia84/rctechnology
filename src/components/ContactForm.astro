@@ -9,9 +9,9 @@ interface Props {
 const { action } = Astro.props;
 ---
 
-<div class="relative w-full bg-gray-950 overflow-hidden">
+<div class="relative w-full bg-gray-950">
   <!-- CONTENEDOR HERO -->
-  <div class="relative h-[85vh] w-full">
+  <div class="relative min-h-[85vh] w-full flex justify-center">
     <!-- IMAGEN -->
     <Picture
       src={formimage}
@@ -50,7 +50,7 @@ const { action } = Astro.props;
 
     <!-- FORM OVERLAY -->
     <div
-      class="absolute inset-0 z-40 flex items-center justify-center px-4 py-8"
+      class="relative z-40 w-full px-4 py-6 sm:py-10 flex flex-col items-center"
     >
       <form
         method="POST"
@@ -62,10 +62,9 @@ const { action } = Astro.props;
            rounded-2xl
            shadow-[0_20px_80px_rgba(0,0,0,0.6)]
            border border-white/10
-           p-6 sm:p-8
-           flex flex-col gap-6
-           my-8
-           hover:scale-100 transition-all duration-300"
+            p-6 sm:p-8
+            flex flex-col gap-6
+            hover:scale-100 transition-all duration-300"
       >
         <div class="flex flex-col gap-1.5">
           <label for="form-name" class="text-white/90 text-sm">Nombre</label>
@@ -105,10 +104,10 @@ const { action } = Astro.props;
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <label for="form-message" class="text-white/90 text-sm">Mensaje</label
+          <label for="form-message-input" class="text-white/90 text-sm">Mensaje</label
           >
           <textarea
-            id="form-message"
+            id="form-message-input"
             name="message"
             rows="4"
             class="w-full p-2 rounded-lg bg-gray-800/70 border border-white/10 text-white focus:outline-none focus:border-red-500"
@@ -142,7 +141,7 @@ const { action } = Astro.props;
         </button>
 
         <div
-          id="form-message"
+          id="form-status"
           class="text-center text-sm min-h-[20px] text-white/80"
         >
         </div>
@@ -163,11 +162,11 @@ const { action } = Astro.props;
   const form = document.getElementById(
     'form-contacto',
   ) as HTMLFormElement | null;
-  const formMessageElement = document.getElementById(
-    'form-message',
+  const formStatusElement = document.getElementById(
+    'form-status',
   ) as HTMLDivElement | null;
 
-  if (!termsCheckbox || !submitButton || !form || !formMessageElement) {
+  if (!termsCheckbox || !submitButton || !form || !formStatusElement) {
     throw new Error('Contact form elements were not found.');
   }
 
@@ -182,21 +181,21 @@ const { action } = Astro.props;
     if (!termsCheckbox.checked) {
       event.preventDefault();
       submitButton.toggleAttribute('disabled', true);
-      formMessageElement.textContent =
+      formStatusElement.textContent =
         'Debes aceptar la política de privacidad.';
       return;
     }
 
     event.preventDefault();
     submitButton.disabled = true;
-    formMessageElement.textContent = 'Enviando...';
+    formStatusElement.textContent = 'Enviando...';
 
     try {
       const formData = new FormData(form);
       const result = await actions.contact(formData);
 
       if (result.data) {
-        formMessageElement.textContent = 'Mensaje enviado con éxito!';
+        formStatusElement.textContent = 'Mensaje enviado con éxito!';
       } else {
         const error = result.error as
           | {
@@ -211,15 +210,15 @@ const { action } = Astro.props;
           : [];
 
         if (fieldMessages.length > 0) {
-          formMessageElement.textContent = fieldMessages.join(' ');
+          formStatusElement.textContent = fieldMessages.join(' ');
         } else if (error?.message) {
-          formMessageElement.textContent = error.message;
+          formStatusElement.textContent = error.message;
         } else {
-          formMessageElement.textContent = 'Se produjo un error :(';
+          formStatusElement.textContent = 'Se produjo un error :(';
         }
       }
     } catch {
-      formMessageElement.textContent = 'Se produjo un error :(';
+      formStatusElement.textContent = 'Se produjo un error :(';
     } finally {
       syncSubmitState();
     }

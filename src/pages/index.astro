@@ -7,7 +7,9 @@ import gadgets from '../assets/cards/gadgets.png';
 import dashboard from '../assets/cards/dashboard.png';
 import ContactForm from '../components/ContactForm.astro';
 import { actions } from 'astro:actions';
-import Esponsors from '../components/Esponsors.astro';
+import Soporte from '../components/Soporte.astro';
+import Colaboraciones from '../components/Colaboraciones.astro';
+import Subvenciones from '../components/Subvenciones.astro';
 
 const data = [
   {
@@ -199,10 +201,22 @@ const data = [
 
   <!-- SPONSORS -->
   <h2
-    class="text-3xl md:text-4xl lg:text-5xl text-center my-24 font-semibold tracking-tight"
+    class="text-3xl md:text-4xl lg:text-5xl text-center my-20 font-semibold tracking-tight"
   >
-    Proyecto subvencionado por CDTI
+    Con el apoyo de
   </h2>
 
-  <Esponsors />
+  <Soporte />
+  <h2
+    class="text-3xl md:text-4xl lg:text-5xl text-center my-20 font-semibold tracking-tight"
+  >
+    Colaboraciones
+  </h2>
+  <Colaboraciones />
+  <h2
+    class="text-3xl md:text-4xl lg:text-5xl text-center my-20 font-semibold tracking-tight"
+  >
+    Proyecto subvencionado por
+  </h2>
+  <Subvenciones />
 </Layout>
