@@ -181,6 +181,7 @@ const data = [
       </h2>
 
       <p
+        data-reveal
         class="text-gray-300 text-lg md:text-3xl sm:px-2 font-medium leading-relaxed"
       >
         En RC Technology, no solo observamos el futuro de la medicina; lo
@@ -200,7 +201,7 @@ const data = [
     Contacto
   </h2>
 
-  <ContactForm action={actions.contact} />
+  <div data-reveal><ContactForm action={actions.contact} /></div>
 
   <!-- SPONSORS -->
   <h2
