@@ -1,6 +1,5 @@
 import { defineAction, ActionError } from 'astro:actions';
 import { z } from 'astro:schema';
-import { Resend } from 'resend';
 import { getSupabaseClient, hasSupabaseConfig } from '../lib/supabaseClient';
 
 type ContactInput = {
@@ -62,6 +61,7 @@ export const server = {
 
       if (import.meta.env.RESEND_API_KEY) {
         try {
+          const { Resend } = await import('resend');
           const resend = new Resend(import.meta.env.RESEND_API_KEY);
           await resend.emails.send({
             from: import.meta.env.CONTACT_EMAIL_FROM ?? 'onboarding@resend.dev',
