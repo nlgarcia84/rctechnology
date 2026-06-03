@@ -52,9 +52,12 @@ const { Cookie, ArrowUpCircle, Home } = pkg;
       <div id="scroll-markers" class="absolute inset-0 -left-[5px]"></div>
     </div>
 
-    <a href="/" id="return-top" class="fixed bottom-0 right-0 m-10 z-[200]">
+    <button
+      id="return-top"
+      class="fixed bottom-0 right-0 m-10 z-[200] opacity-0 pointer-events-none transition-opacity duration-300"
+    >
       <ArrowUpCircle className="w-10 h-10" />
-    </a>
+    </button>
 
     <script>
       import { gsap } from 'gsap';
@@ -176,13 +179,19 @@ const { Cookie, ArrowUpCircle, Home } = pkg;
         });
 
       // Transicion smooth del scrool top
-      document.getElementById('return-top')?.addEventListener('click', (e) => {
-        e.preventDefault();
+      const returnTop = document.getElementById('return-top');
+      returnTop?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
 
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
+      // Ocultar botón cuando top = 0
+      window.addEventListener('scroll', () => {
+        if (!returnTop) return;
+        if (window.scrollY > 0) {
+          returnTop.classList.remove('opacity-0', 'pointer-events-none');
+        } else {
+          returnTop.classList.add('opacity-0', 'pointer-events-none');
+        }
       });
     </script>
   </body>

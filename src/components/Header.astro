@@ -146,6 +146,10 @@ import logoMobile from '../assets/rctlogo_mobile.png';
   #mobile-menu.open {
     transform: translateX(0);
   }
+
+  #main-header.header-hidden {
+    top: -200px;
+  }
 </style>
 
 <script>
@@ -177,24 +181,40 @@ import logoMobile from '../assets/rctlogo_mobile.png';
 
     // Lógica de Scroll y Centrado
     if (header) {
+      let lastScroll = 0;
+
       window.addEventListener('scroll', () => {
-        const isScrolled = window.scrollY > 50;
+        const currentScroll = window.scrollY;
+        const isScrollingDown = currentScroll > lastScroll;
+        const isSmall = window.innerWidth < 768;
+
+        // Ocultar header al bajar, mostrar al subir
+        if (currentScroll > 100) {
+          if (isScrollingDown) {
+            header.classList.add('header-hidden');
+          } else if (currentScroll < lastScroll) {
+            header.classList.remove('header-hidden');
+          }
+        } else {
+          header.classList.remove('header-hidden');
+        }
+
+        // Lógica de encogimiento en móvil
+        const isScrolled = currentScroll > 50;
         const scaleClass = 'scale-[0.85]';
-        const isSmall = window.innerWidth < 768; // apply shrinking only on small screens
 
         if (!isSmall) {
-          // Keep proportions from 768px upwards: ensure default header state
           header.classList.add('md:h-24', 'py-4');
           header.classList.remove('h-16', 'md:h-16', 'py-0');
 
           logo?.classList.remove(scaleClass);
           nav?.classList.remove(scaleClass);
           actions?.classList.remove(scaleClass);
+          lastScroll = currentScroll;
           return;
         }
 
         if (isScrolled) {
-          // On small screens, shrink header slightly on scroll
           header.classList.remove('md:h-24', 'py-4');
           header.classList.add('h-16', 'md:h-16', 'py-0', 'items-center');
 
@@ -209,6 +229,8 @@ import logoMobile from '../assets/rctlogo_mobile.png';
           nav?.classList.remove(scaleClass);
           actions?.classList.remove(scaleClass);
         }
+
+        lastScroll = currentScroll;
       });
     }
   };
