@@ -2,27 +2,27 @@
 import MiniCard from '../../components/MiniCard.astro';
 import Layout from '../../layouts/Layout.astro';
 import pkg from 'lucide-react';
+import { t } from '../../lib/i18n';
+import type { Locale } from '../../lib/i18n';
 const { Home } = pkg;
+const locale: Locale = Astro.locals.locale ?? 'es';
 const isHomePage = Astro.url.pathname === '/';
 
 const data = [
   {
     icon: 'Link2',
-    title: 'Interoperabilidad Total:',
-    description:
-      'Integración nativa con historias clínicas electrónicas mediante estándares internacionales FHIR HL7.',
+    title: t(locale, 'benefits.feature1_title'),
+    description: t(locale, 'benefits.feature1_desc'),
   },
   {
     icon: 'BellRing',
-    title: 'Alertas Inteligentes',
-    description:
-      'Notificaciones automáticas al equipo médico ante valores fuera de rango o variaciones súbitas de peso.',
+    title: t(locale, 'benefits.feature2_title'),
+    description: t(locale, 'benefits.feature2_desc'),
   },
   {
     icon: 'ShieldCheck',
-    title: 'Trazabilidad y Seguridad',
-    description:
-      'Máxima protección de datos con cifrado AES-256 y firma digital para garantizar la integridad de cada resultado.',
+    title: t(locale, 'benefits.feature3_title'),
+    description: t(locale, 'benefits.feature3_desc'),
   },
 ];
 ---
@@ -37,7 +37,7 @@ const data = [
         class="border-b border-white/10 p-5 mb-8 flex items-center justify-between gap-4"
       >
         <h1 class="text-4xl font-bold text-white mb-0">
-          Beneficios Clave de Nuestra Plataforma
+          {t(locale, 'benefits.title')}
         </h1>
         {
           !isHomePage && (
@@ -58,14 +58,10 @@ const data = [
       >
         <h2 class="text-xl font-semibold text-white mb-4 flex items-center">
           <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
-          Una Visión Integral del Paciente en Tiempo Real
+          {t(locale, 'benefits.section_title')}
         </h2>
         <p class="mb-5">
-          Gracias a nuestra Conectividad Total, todos los dispositivos de la
-          gama RedBeat —desde wearables y básculas médicas hasta medidores de
-          biomarcadores— sincronizan sus datos automáticamente en la nube. Esto
-          permite a los profesionales de la salud acceder a un Dashboard de
-          Monitorización avanzado, donde pueden visualizar de forma unificada:
+          {t(locale, 'benefits.section_text')}
         </p>
         <ol>
           {

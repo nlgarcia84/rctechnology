@@ -1,5 +1,8 @@
 ---
+import { t } from '../lib/i18n';
+import type { Locale } from '../lib/i18n';
 
+const locale: Locale = Astro.locals.locale ?? 'es';
 ---
 
 <div
@@ -22,18 +25,16 @@
       </svg>
     </div>
     <div>
-      <h3 class="text-white font-bold text-lg">Configuración de Cookies</h3>
+      <h3 class="text-white font-bold text-lg">{t(locale, 'cookie.title')}</h3>
       <p class="text-gray-400 text-sm mt-2 leading-relaxed">
-        Utilizamos cookies para mejorar la experiencia técnica de <strong
-          >RC Technology</strong
-        > y analizar el tráfico de forma anónima.
+        {t(locale, 'cookie.text')}
       </p>
       <div class="flex flex-wrap gap-3 mt-6">
         <button
           id="accept-cookies"
           class="bg-red-700 hover:bg-red-800 text-white text-sm font-bold py-2.5 px-6 rounded-xl transition-all active:scale-95"
         >
-          Aceptar todas
+          {t(locale, 'cookie.accept')}
         </button>
         <a
           href="/politica-cookies"

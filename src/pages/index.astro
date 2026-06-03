@@ -10,28 +10,28 @@ import { actions } from 'astro:actions';
 import Soporte from '../components/Soporte.astro';
 import Colaboraciones from '../components/Colaboraciones.astro';
 import Subvenciones from '../components/Subvenciones.astro';
+import { t } from '../lib/i18n';
+import type { Locale } from '../lib/i18n';
+
+const locale: Locale = Astro.locals.locale ?? 'es';
 
 const data = [
   {
     imageUrl: appImg,
-    title: 'App y plataforma',
-    description:
-      'En el mundo de la atención médica actual, la precisión es esencial para brindar el mejor cuidado a nuestros pacientes. Con la ayuda de la inteligencia artificial y la innovación en dispositivos de última generación, estamos liderando el camino hacia una atención cardiológica más avanzada y personalizada que nunca.',
+    title: t(locale, 'home.card1_title'),
+    description: t(locale, 'home.card1_desc'),
     paginaDesti: '/plataforma/',
   },
   {
     imageUrl: gadgets,
-    title: 'Nuestra Tecnología de Vanguardia',
-    description:
-      'Utilizamos dispositivos propios diseñados específicamente para medir su salud cardiovascular de manera precisa y continua. Estos dispositivos incluyen ECGs, holters, parches, implantables y wearables. ',
+    title: t(locale, 'home.card2_title'),
+    description: t(locale, 'home.card2_desc'),
     paginaDesti: '/tecnologia/',
   },
   {
     imageUrl: dashboard,
-    title: 'Ventajas de nuestra plataforma',
-    description: [
-      'Precisión Inigualable: Nuestra IA es capaz de detectar incluso las irregularidades más sutiles en su ritmo cardíaco, lo que nos permite intervenir antes de que los problemas empeoren.',
-    ],
+    title: t(locale, 'home.card3_title'),
+    description: [t(locale, 'home.card3_desc')],
     paginaDesti: '/ventajasplataforma/',
   },
 ];
@@ -71,19 +71,18 @@ const data = [
       <h1
         class="text-white text-5xl md:text-6xl font-black tracking-tight pb-5 pt-40"
       >
-        Precisión cardíaca constante para una vida plena y segura
+        {t(locale, 'hero.title')}
       </h1>
 
       <p class="text-gray-300 text-lg md:text-xl font-medium leading-relaxed">
-        Integramos dispositivos de grado clínico con algoritmos de IA para
-        ofrecer una visión 360° de su salud cardiovascular en tiempo real
+        {t(locale, 'hero.subtitle')}
       </p>
 
       <a
         href="#productos"
         class="mt-6 px-3 xs:px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl transition"
       >
-        Nuestros Productos
+        {t(locale, 'hero.cta')}
       </a>
     </div>
   </div>
@@ -96,7 +95,7 @@ const data = [
     <span
       class="text-4xl md:text-5xl text-center my-16 font-thin tracking-tight"
     >
-      Detección y medicina de precisión con IA para cardiología
+      {t(locale, 'home.intro')}
     </span>
   </div>
 
@@ -104,7 +103,7 @@ const data = [
     data-reveal
     class="text-4xl md:text-xl lg:text-5xl text-center my-16 font-semibold tracking-tight"
   >
-    Nuestros productos
+    {t(locale, 'home.products_title')}
   </h2>
 
   <!-- CARDS -->
@@ -177,17 +176,14 @@ const data = [
         data-reveal
         class="text-4xl md:text-4xl lg:text-5xl text-center my-16 font-semibold tracking-tight"
       >
-        Sobre Nosotros
+        {t(locale, 'home.about_title')}
       </h2>
 
       <p
         data-reveal
         class="text-gray-300 text-lg md:text-3xl sm:px-2 font-medium leading-relaxed"
       >
-        En RC Technology, no solo observamos el futuro de la medicina; lo
-        estamos construyendo. Nacimos con la misión de cerrar la brecha entre la
-        tecnología de vanguardia y el cuidado del corazón, transformando datos
-        biométricos complejos en diagnósticos claros, rápidos y precisos.
+        {t(locale, 'home.about_text')}
       </p>
     </div>
   </div>
@@ -198,7 +194,7 @@ const data = [
     id="contact"
     class="text-4xl md:text-4xl lg:text-5xl text-center my-16 font-semibold tracking-tight"
   >
-    Contacto
+    {t(locale, 'contact.title')}
   </h2>
 
   <div data-reveal><ContactForm action={actions.contact} /></div>
@@ -208,7 +204,7 @@ const data = [
     data-reveal
     class="text-3xl md:text-4xl lg:text-5xl text-center my-16 font-semibold tracking-tight"
   >
-    Con el apoyo de
+    {t(locale, 'home.support_title')}
   </h2>
 
   <div data-reveal><Soporte /></div>
@@ -216,14 +212,14 @@ const data = [
     data-reveal
     class="text-3xl md:text-4xl lg:text-5xl text-center my-16 font-semibold tracking-tight"
   >
-    Colaboraciones
+    {t(locale, 'home.collab_title')}
   </h2>
   <div data-reveal><Colaboraciones /></div>
   <h2
     data-reveal
     class="text-3xl md:text-4xl lg:text-5xl text-center my-16 font-semibold tracking-tight"
   >
-    Proyecto subvencionado por
+    {t(locale, 'home.grant_title')}
   </h2>
   <div data-reveal><Subvenciones /></div>
 </Layout>

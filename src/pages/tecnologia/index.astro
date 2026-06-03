@@ -2,67 +2,63 @@
 import MiniCard from '../../components/MiniCard.astro';
 import Layout from '../../layouts/Layout.astro';
 import pkg from 'lucide-react';
+import { t } from '../../lib/i18n';
+import type { Locale } from '../../lib/i18n';
 const { Home } = pkg;
+const locale: Locale = Astro.locals.locale ?? 'es';
 const isHomePage = Astro.url.pathname === '/';
 
 const categories = [
   {
-    title: 'Seguimiento Diario',
-    subtitle: 'Dispositivos que te acompañan siempre.',
+    title: t(locale, 'tech.cat1_title'),
+    subtitle: t(locale, 'tech.cat1_sub'),
     items: [
       {
         icon: 'Watch',
-        title: 'RedBeat Watch',
-        description:
-          'Centro de control en la muñeca para presión arterial, SpO2, frecuencia cardíaca y temperatura.',
+        title: t(locale, 'tech.item1_title'),
+        description: t(locale, 'tech.item1_desc'),
       },
       {
         icon: 'HeartPulse',
-        title: 'RedBeat Patch',
-        description:
-          'Parche ECG discreto que detecta arritmias y eventos cardíacos mientras el paciente mantiene su rutina.',
+        title: t(locale, 'tech.item2_title'),
+        description: t(locale, 'tech.item2_desc'),
       },
       {
         icon: 'Scale',
-        title: 'RedBeat Scale',
-        description:
-          'Báscula de bioimpedancia para control de peso y líquidos, clave en la prevención de edemas.',
+        title: t(locale, 'tech.item3_title'),
+        description: t(locale, 'tech.item3_desc'),
       },
     ],
   },
   {
-    title: 'Análisis Avanzado',
-    subtitle: 'El laboratorio en tu bolsillo.',
+    title: t(locale, 'tech.cat2_title'),
+    subtitle: t(locale, 'tech.cat2_sub'),
     items: [
       {
         icon: 'FlaskConical',
-        title: 'Medidor NT-proBNP',
-        description:
-          'Análisis de sangre capilar en menos de 10 minutos para diagnóstico y seguimiento de insuficiencia cardíaca.',
+        title: t(locale, 'tech.item4_title'),
+        description: t(locale, 'tech.item4_desc'),
       },
       {
         icon: 'Droplets',
-        title: 'Medidor Urine Calcium',
-        description:
-          'Sensor digital para medir calcio en orina y monitorizar la salud renal asociada al riesgo cardiovascular.',
+        title: t(locale, 'tech.item5_title'),
+        description: t(locale, 'tech.item5_desc'),
       },
     ],
   },
   {
-    title: 'Grado Clínico',
-    subtitle: 'Precisión profesional para decisiones médicas.',
+    title: t(locale, 'tech.cat3_title'),
+    subtitle: t(locale, 'tech.cat3_sub'),
     items: [
       {
         icon: 'ScanLine',
-        title: 'RedBeat ECG 12 Derivaciones',
-        description:
-          'Electrocardiógrafo profesional que ofrece una lectura cardiaca completa con calidad hospitalaria.',
+        title: t(locale, 'tech.item6_title'),
+        description: t(locale, 'tech.item6_desc'),
       },
       {
         icon: 'Building2',
-        title: 'Kiosco RedBeat',
-        description:
-          'Punto de salud automatizado para cribado rápido de hipertensión y riesgo cardiovascular en farmacias y empresas.',
+        title: t(locale, 'tech.item7_title'),
+        description: t(locale, 'tech.item7_desc'),
       },
     ],
   },
@@ -79,12 +75,9 @@ const categories = [
         class="border-b border-white/10 p-5 mb-8 flex items-center justify-between gap-4"
       >
         <div>
-          <h1 class="text-4xl font-bold text-white mb-2">Tecnología RedBeat</h1>
+          <h1 class="text-4xl font-bold text-white mb-2">{t(locale, 'tech.title')}</h1>
           <p class="text-gray-300 max-w-4xl">
-            El ecosistema RedBeat integra monitorización continua, análisis
-            portátil de biomarcadores y soluciones clínicas de alta precisión
-            para transformar el seguimiento cardiovascular en una estrategia
-            preventiva, conectada y accionable.
+            {t(locale, 'tech.subtitle')}
           </p>
         </div>
         {

@@ -1,12 +1,15 @@
 ---
 import formimage from '../assets/formimage.png';
 import Picture from 'astro/components/Picture.astro';
+import { t } from '../lib/i18n';
+import type { Locale } from '../lib/i18n';
 
 interface Props {
   action?: any;
 }
 
 const { action } = Astro.props;
+const locale: Locale = Astro.locals.locale ?? 'es';
 ---
 
 <div class="relative w-full bg-gray-950">
@@ -67,7 +70,7 @@ const { action } = Astro.props;
             hover:scale-100 transition-all duration-300"
       >
         <div class="flex flex-col gap-1.5">
-          <label for="form-name" class="text-white/90 text-sm">Nombre</label>
+          <label for="form-name" class="text-white/90 text-sm">{t(locale, 'contact.name')}</label>
           <input
             id="form-name"
             type="text"
@@ -79,7 +82,7 @@ const { action } = Astro.props;
 
         <div class="flex flex-col gap-1.5">
           <label for="form-surname" class="text-white/90 text-sm"
-            >Apellido</label
+            >{t(locale, 'contact.surname')}</label
           >
           <input
             id="form-surname"
@@ -92,7 +95,7 @@ const { action } = Astro.props;
 
         <div class="flex flex-col gap-1.5">
           <label for="form-email" class="text-white/90 text-sm"
-            >Correo Electrónico</label
+            >{t(locale, 'contact.email')}</label
           >
           <input
             id="form-email"
@@ -104,7 +107,7 @@ const { action } = Astro.props;
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <label for="form-message-input" class="text-white/90 text-sm">Mensaje</label
+          <label for="form-message-input" class="text-white/90 text-sm">{t(locale, 'contact.message')}</label
           >
           <textarea
             id="form-message-input"
@@ -124,9 +127,9 @@ const { action } = Astro.props;
             class="w-4 h-4 accent-red-600"
           />
           <span>
-            Acepto la <a
+            {t(locale, 'contact.privacy')} <a
               href="/politica-privacidad/"
-              class="underline hover:text-red-400">Política de Privacidad</a
+              class="underline hover:text-red-400">{t(locale, 'contact.privacy_link')}</a
             >
           </span>
         </label>
@@ -137,12 +140,16 @@ const { action } = Astro.props;
           class="bg-red-600 hover:bg-red-700 text-white font-medium py-3 rounded-xl disabled:opacity-50 transition-all"
           disabled
         >
-          Enviar
+          {t(locale, 'contact.submit')}
         </button>
 
         <div
           id="form-status"
           class="text-center text-sm min-h-[20px] text-white/80"
+          data-error-accept={t(locale, 'contact.error_accept')}
+          data-sending={t(locale, 'contact.sending')}
+          data-success={t(locale, 'contact.success')}
+          data-error-generic={t(locale, 'contact.error_generic')}
         >
         </div>
       </form>
@@ -171,31 +178,32 @@ const { action } = Astro.props;
   }
 
   const syncSubmitState = () => {
-    submitButton.toggleAttribute('disabled', !termsCheckbox.checked);
+      submitButton.toggleAttribute('disabled', !termsCheckbox.checked);
   };
 
   termsCheckbox.addEventListener('change', syncSubmitState);
   syncSubmitState();
 
+  const getMsg = (key: string) => formStatusElement.getAttribute(key) ?? '';
+
   form.addEventListener('submit', async (event) => {
     if (!termsCheckbox.checked) {
       event.preventDefault();
       submitButton.toggleAttribute('disabled', true);
-      formStatusElement.textContent =
-        'Debes aceptar la política de privacidad.';
+      formStatusElement.textContent = getMsg('data-error-accept');
       return;
     }
 
     event.preventDefault();
     submitButton.disabled = true;
-    formStatusElement.textContent = 'Enviando...';
+    formStatusElement.textContent = getMsg('data-sending');
 
     try {
       const formData = new FormData(form);
       const result = await actions.contact(formData);
 
       if (result.data) {
-        formStatusElement.textContent = 'Mensaje enviado con éxito!';
+        formStatusElement.textContent = getMsg('data-success');
       } else {
         const error = result.error as
           | {
@@ -214,11 +222,11 @@ const { action } = Astro.props;
         } else if (error?.message) {
           formStatusElement.textContent = error.message;
         } else {
-          formStatusElement.textContent = 'Se produjo un error :(';
+          formStatusElement.textContent = getMsg('data-error-generic');
         }
       }
     } catch {
-      formStatusElement.textContent = 'Se produjo un error :(';
+      formStatusElement.textContent = getMsg('data-error-generic');
     } finally {
       syncSubmitState();
     }

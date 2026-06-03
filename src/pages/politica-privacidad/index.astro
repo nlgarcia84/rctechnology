@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import pkg from 'lucide-react';
+import { t } from '../../lib/i18n';
+import type { Locale } from '../../lib/i18n';
 const { Home } = pkg;
+const locale: Locale = Astro.locals.locale ?? 'es';
 const isHomePage = Astro.url.pathname === '/';
 ---
 
@@ -17,9 +20,9 @@ const isHomePage = Astro.url.pathname === '/';
       >
         <div>
           <h1 class="text-4xl font-bold text-white mb-2">
-            Política de Privacidad
+            {t(locale, 'legal.privacy_title')}
           </h1>
-          <p class="text-sm text-gray-400">Última actualización: Abril 2026</p>
+          <p class="text-sm text-gray-400">{t(locale, 'legal.last_update')}</p>
         </div>
         {
           !isHomePage && (
@@ -39,13 +42,13 @@ const isHomePage = Astro.url.pathname === '/';
       >
         <h2 class="text-xl font-semibold text-white mb-4 flex items-center">
           <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
-          Responsable del Tratamiento
+          {t(locale, 'legal.privacy_controller')}
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <p>
             <span
               class="text-gray-500 block uppercase text-xs font-bold tracking-wider"
-              >Empresa:</span
+              >{t(locale, 'legal.privacy_company')}:</span
             > RC Technology Solutions SL.
           </p>
           <p>
@@ -77,55 +80,38 @@ const isHomePage = Astro.url.pathname === '/';
 
       <div class="space-y-8 text-gray-300 leading-relaxed">
         <section>
-          <h2 class="text-2xl font-bold text-white mb-4">1. Finalidad</h2>
+          <h2 class="text-2xl font-bold text-white mb-4">{t(locale, 'legal.privacy_section1_title')}</h2>
           <p>
-            En RC Technology Solutions SL. tratamos la información que nos
-            facilitan las personas interesadas con el fin de gestionar el envío
-            de la información que nos soliciten, facilitar a los interesados
-            ofertas de productos y servicios de su interés y/o gestionar sus
-            pedidos técnicos.
+            {t(locale, 'legal.privacy_section1_text')}
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-4">2. Legitimación</h2>
+          <h2 class="text-2xl font-bold text-white mb-4">{t(locale, 'legal.privacy_section2_title')}</h2>
           <p>
-            El tratamiento de sus datos se basa en el consentimiento que se le
-            solicita al completar cualquier formulario de contacto, así como en
-            la ejecución de un contrato de servicios tecnológicos si fuera el
-            caso.
+            {t(locale, 'legal.privacy_section2_text')}
           </p>
         </section>
 
         <section>
           <h2 class="text-2xl font-bold text-white mb-4">
-            3. Conservación de Datos
+            {t(locale, 'legal.privacy_section3_title')}
           </h2>
           <p>
-            Los datos personales proporcionados se conservarán mientras se
-            mantenga la relación comercial, no se solicite su supresión por el
-            interesado o durante el plazo legalmente establecido para cumplir
-            con obligaciones tributarias.
+            {t(locale, 'legal.privacy_section3_text')}
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-4">4. Derechos</h2>
+          <h2 class="text-2xl font-bold text-white mb-4">{t(locale, 'legal.privacy_section4_title')}</h2>
           <p>
-            Usted tiene derecho a obtener confirmación sobre si en RC Technology
-            Solutions SL. estamos tratando sus datos personales. Tiene derecho a
-            acceder, rectificar o solicitar la supresión cuando los datos ya no
-            sean necesarios enviando un correo a <strong
-              >rafael@rctechnology.es</strong
-            >.
+            {t(locale, 'legal.privacy_section4_text')}
           </p>
         </section>
 
         <section class="border-t border-white/10 pt-8 mt-12 text-center">
           <p class="text-sm text-gray-500 italic">
-            Esta política cumple con el Reglamento General de Protección de
-            Datos (RGPD) y la Ley Orgánica de Protección de Datos y Garantía de
-            Derechos Digitales (LOPDGDD).
+            {t(locale, 'legal.privacy_compliance')}
           </p>
         </section>
       </div>

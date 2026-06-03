@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import pkg from 'lucide-react';
+import { t } from '../../lib/i18n';
+import type { Locale } from '../../lib/i18n';
 const { Home } = pkg;
+const locale: Locale = Astro.locals.locale ?? 'es';
 const isHomePage = Astro.url.pathname === '/';
 ---
 
@@ -17,9 +20,9 @@ const isHomePage = Astro.url.pathname === '/';
       >
         <div>
           <h1 class="text-4xl font-bold text-white mb-2">
-            Política de Cookies
+            {t(locale, 'legal.cookies_title')}
           </h1>
-          <p class="text-sm text-gray-400">Última actualización: Abril 2026</p>
+          <p class="text-sm text-gray-400">{t(locale, 'legal.last_update')}</p>
         </div>
         {
           !isHomePage && (
@@ -38,19 +41,17 @@ const isHomePage = Astro.url.pathname === '/';
         <section>
           <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
             <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
-            ¿Qué son las cookies?[cite: 2]
+            {t(locale, 'legal.cookies_what_title')}
           </h2>
           <p>
-            Las cookies son pequeños archivos de texto que los sitios web
-            almacenan en tu dispositivo para que funcionen de manera eficiente y
-            proporcionen información estadística[cite: 2].
+            {t(locale, 'legal.cookies_what_text')}
           </p>
         </section>
 
         <section>
           <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
             <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
-            Tabla de Cookies[cite: 2]
+            {t(locale, 'legal.cookies_table_title')}
           </h2>
           <div class="overflow-x-auto">
             <table
@@ -58,20 +59,20 @@ const isHomePage = Astro.url.pathname === '/';
             >
               <thead>
                 <tr class="bg-gray-800/60 text-white">
-                  <th class="p-3 border border-white/10">Nombre</th>
-                  <th class="p-3 border border-white/10">Proveedor</th>
-                  <th class="p-3 border border-white/10">Finalidad</th>
-                  <th class="p-3 border border-white/10">Expiración</th>
+                  <th class="p-3 border border-white/10">{t(locale, 'legal.cookies_table_name')}</th>
+                  <th class="p-3 border border-white/10">{t(locale, 'legal.cookies_table_provider')}</th>
+                  <th class="p-3 border border-white/10">{t(locale, 'legal.cookies_table_purpose')}</th>
+                  <th class="p-3 border border-white/10">{t(locale, 'legal.cookies_table_expiry')}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td class="p-3 border border-white/10">cookie-consent</td>
-                  <td class="p-3 border border-white/10">Propia</td>
+                  <td class="p-3 border border-white/10">{t(locale, 'legal.cookies_table_own')}</td>
                   <td class="p-3 border border-white/10"
-                    >Almacenar el estado de consentimiento[cite: 2].</td
+                    >{t(locale, 'legal.cookies_table_consent_purpose')}</td
                   >
-                  <td class="p-3 border border-white/10">1 año[cite: 2]</td>
+                  <td class="p-3 border border-white/10">{t(locale, 'legal.cookies_table_consent_expiry')}</td>
                 </tr>
               </tbody>
             </table>
@@ -81,12 +82,10 @@ const isHomePage = Astro.url.pathname === '/';
         <section>
           <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
             <span class="w-1.5 h-6 bg-red-600 rounded-full mr-3"></span>
-            Gestión y Desactivación[cite: 2]
+            {t(locale, 'legal.cookies_manage_title')}
           </h2>
           <p>
-            Puedes bloquear o eliminar las cookies instaladas mediante la
-            configuración de tu navegador (Chrome, Firefox, Safari, Edge)[cite:
-            2].
+            {t(locale, 'legal.cookies_manage_text')}
           </p>
         </section>
       </div>

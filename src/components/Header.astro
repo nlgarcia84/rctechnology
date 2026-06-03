@@ -3,6 +3,11 @@ import Button from './Button.astro';
 import { Picture } from 'astro:assets';
 import logo from '../assets/rctlogo.png';
 import logoMobile from '../assets/rctlogo_mobile.png';
+import LanguageSelector from './LanguageSelector.astro';
+import { t } from '../lib/i18n';
+import type { Locale } from '../lib/i18n';
+
+const locale: Locale = Astro.locals.locale ?? 'es';
 ---
 
 <header
@@ -41,42 +46,44 @@ import logoMobile from '../assets/rctlogo_mobile.png';
     <a
       href="/#hero"
       class="hover:text-red-500 transition-colors lg:px-4 xl:px-8 py-2"
-      >Inicio</a
+      >{t(locale, 'nav.home')}</a
     >
     <a
       href="/#aboutus"
       class="hover:text-red-500 transition-colors lg:px-4 xl:px-8 py-2"
-      >Sobre Nosotros</a
+      >{t(locale, 'nav.about')}</a
     >
     <a
       href="/#contact"
-      class="hover:text-red-500 transition-colors lg:px-4 xl:px-8">Contacto</a
+      class="hover:text-red-500 transition-colors lg:px-4 xl:px-8">{t(locale, 'nav.contact')}</a
     >
   </nav>
 
   <div
     id="header-actions"
-    class="flex gap-4 items-center justify-end transition-all duration-500 origin-right"
+    class="flex gap-2 items-center justify-end transition-all duration-500 origin-right"
   >
+    <LanguageSelector />
+
     <a
       href="https://redbeat.stackcode.io/#/authentication/signin"
       class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded-lg text-sm lg:text-base transition-all items-center justify-center"
     >
-      <span class="hidden lg:inline">REDBEAT 1.0</span>
+      <span class="hidden lg:inline">{t(locale, 'nav.platform_1')}</span>
     </a>
 
     <a
       href="http://54.37.38.27/"
       class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded-lg text-sm lg:text-base transition-all items-center justify-center"
     >
-      <span class="hidden lg:inline">REDBEAT 2.0</span>
+      <span class="hidden lg:inline">{t(locale, 'nav.platform_2')}</span>
     </a>
 
     <Button
       as="a"
       href="/#contact"
       class="bg-red-700 hover:bg-red-800 px-3 py-2 xs:px-6 xs:py-2.5 rounded-xl transition-all shadow-lg shadow-red-900/20 text-sm xs:text-base"
-      text="Contáctanos"
+      text={t(locale, 'nav.contact_btn')}
     />
 
     <button
@@ -101,21 +108,21 @@ import logoMobile from '../assets/rctlogo_mobile.png';
   <div class="flex flex-col gap-6 mt-24">
     <a
       href="/#hero"
-      class="text-2xl font-semibold border-b border-white/10 pb-4">Inicio</a
+      class="text-2xl font-semibold border-b border-white/10 pb-4">{t(locale, 'mobile_menu.home')}</a
     >
     <a
       href="/#aboutus"
-      class="text-2xl font-semibold border-b border-white/10 pb-4">Acerca de</a
+      class="text-2xl font-semibold border-b border-white/10 pb-4">{t(locale, 'mobile_menu.about')}</a
     >
     <a
       href="/#contact"
-      class="text-2xl font-semibold border-b border-white/10 pb-4">Contacto</a
+      class="text-2xl font-semibold border-b border-white/10 pb-4">{t(locale, 'mobile_menu.contact')}</a
     >
     <a
       href="https://redbeat.stackcode.io/#/authentication/signin"
       class="text-2xl font-semibold border-b border-white/10 pb-4"
     >
-      Plataforma <span class="text-xl font-bold text-red-500 pt-4"
+      {t(locale, 'mobile_menu.platform')} <span class="text-xl font-bold text-red-500 pt-4"
         >REDBEAT 1.0</span
       >
     </a>
@@ -123,7 +130,7 @@ import logoMobile from '../assets/rctlogo_mobile.png';
       href="http://54.37.38.27/"
       class="text-2xl font-semibold border-b border-white/10 pb-4"
     >
-      Plataforma <span class="text-xl font-bold text-red-500 pt-4"
+      {t(locale, 'mobile_menu.platform')} <span class="text-xl font-bold text-red-500 pt-4"
         >REDBEAT 2.0</span
       >
     </a>
