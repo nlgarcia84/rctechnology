@@ -22,19 +22,20 @@ const locale: Locale = Astro.locals.locale ?? 'es';
       <Picture
         src={logoMobile}
         alt="RC Technology"
-        width={48}
-        height={48}
+        width={40}
+        height={40}
         formats={['webp', 'png']}
+        class="rounded"
       />
     </a>
     <a href="/#hero" class="logo shrink-0 hidden xl:flex items-center">
       <Picture
         src={logo}
         alt="RC Technology"
-        width={250}
-        height={80}
+        width={140}
+        height={44}
         formats={['webp', 'png']}
-        class="h-16 w-auto object-contain transition-all duration-500"
+        class="h-11 w-auto object-contain rounded transition-all duration-500"
       />
     </a>
   </div>
@@ -67,14 +68,14 @@ const locale: Locale = Astro.locals.locale ?? 'es';
 
     <a
       href="https://redbeat.stackcode.io/#/authentication/signin"
-      class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded-lg text-sm lg:text-base transition-all items-center justify-center"
+      class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded text-sm lg:text-base transition-all items-center justify-center"
     >
       <span class="hidden lg:inline">{t(locale, 'nav.platform_1')}</span>
     </a>
 
     <a
       href="http://54.37.38.27/"
-      class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded-lg text-sm lg:text-base transition-all items-center justify-center"
+      class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded text-sm lg:text-base transition-all items-center justify-center"
     >
       <span class="hidden lg:inline">{t(locale, 'nav.platform_2')}</span>
     </a>
