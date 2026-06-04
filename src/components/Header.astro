@@ -1,5 +1,4 @@
 ---
-import Button from './Button.astro';
 import { Picture } from 'astro:assets';
 import logo from '../assets/rctlogo.png';
 import logoMobile from '../assets/rctlogo_mobile.png';
@@ -96,16 +95,16 @@ const locale: Locale = Astro.locals.locale ?? 'es';
       </div>
     </div>
 
-    <Button
-      as="a"
+    <a
       href="/#contact"
-      class="bg-brand-500 hover:bg-brand-600 px-3 py-2 xs:px-6 xs:py-2.5 rounded-xl transition-all shadow-lg shadow-brand-800/20 text-sm xs:text-base"
-      text={t(locale, 'nav.contact_btn')}
-    />
+      class="hidden sm:inline-flex bg-brand-500 hover:bg-brand-600 px-3 py-2 xs:px-6 xs:py-2.5 rounded-xl transition-all shadow-lg shadow-brand-800/20 text-sm xs:text-base items-center"
+    >
+      {t(locale, 'nav.contact_btn')}
+    </a>
 
     <button
       id="menu-btn"
-      class="lg:hidden relative w-6 sm:w-8 h-6 sm:h-8 flex flex-col justify-around z-[130] cursor-pointer"
+      class="lg:hidden relative w-6 sm:w-8 h-6 sm:h-8 flex flex-col justify-around z-[130] cursor-pointer ml-2"
       aria-label="Menú"
     >
       <span class="block w-full h-0.5 bg-white transition-all duration-300"
@@ -252,6 +251,14 @@ const locale: Locale = Astro.locals.locale ?? 'es';
 
     // Lógica del Menú Móvil
     if (menuBtn && mobileMenu) {
+      const isMenuOpen = () => mobileMenu.classList.contains('open');
+
+      const closeMenu = () => {
+        menuBtn.classList.remove('active');
+        mobileMenu.classList.remove('open');
+        document.body.classList.remove('overflow-hidden');
+      };
+
       const toggleMenu = () => {
         menuBtn.classList.toggle('active');
         mobileMenu.classList.toggle('open');
@@ -262,6 +269,12 @@ const locale: Locale = Astro.locals.locale ?? 'es';
         e.stopPropagation();
         toggleMenu();
       };
+
+      document.addEventListener('click', (e) => {
+        if (isMenuOpen() && !mobileMenu.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)) {
+          closeMenu();
+        }
+      });
 
       mobileMenu.querySelectorAll('a').forEach((link) => {
         link.onclick = toggleMenu;
