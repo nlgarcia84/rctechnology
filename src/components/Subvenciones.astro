@@ -5,16 +5,20 @@ import logoEnisa from '../assets/sponsors/logo_enisa.webp';
 ---
 
 <div class="flex flex-row justify-center gap-2 mb-2">
-  <Image
-    src={logoCdti}
-    alt="Logo CDTI"
-    class="w-auto h-[40px] sm:h-[50px] md:h-[55px] object-contain"
-  />
-</div>
-<div class="flex flex-row justify-center gap-2 mb-2">
-  <Image
-    src={logoEnisa}
-    alt="Logo ENISA"
-    class="w-auto h-[40px] sm:h-[50px] md:h-[55px] object-contain"
-  />
+  <div class="bg-white rounded-lg p-1.5 flex items-center relative overflow-hidden">
+    <Image
+      src={logoCdti}
+      alt="Logo CDTI"
+      class="w-auto h-[40px] sm:h-[50px] md:h-[55px] object-contain"
+    />
+    <div class="absolute inset-0 bg-gray-950/20 pointer-events-none"></div>
+  </div>
+  <div class="bg-white rounded-lg p-1.5 flex items-center relative overflow-hidden">
+    <Image
+      src={logoEnisa}
+      alt="Logo ENISA"
+      class="w-auto h-[40px] sm:h-[50px] md:h-[55px] object-contain"
+    />
+    <div class="absolute inset-0 bg-gray-950/20 pointer-events-none"></div>
+  </div>
 </div>

@@ -1,7 +1,35 @@
 ---
 import { Image } from 'astro:assets';
+import logoInibic from '../assets/sponsors/logo_inibic.png';
+import logoJordiGol from '../assets/sponsors/logo_jordigol.jpg';
+import logoBionova from '../assets/sponsors/logo_bionova.jpg';
 
 const isMobile = true;
 ---
 
-<div class="flex flex-row justify-center gap-2 mb-2"></div>
+  <div class="flex flex-row justify-center gap-2 mb-2">
+    <div class="bg-white rounded-lg p-1.5 flex items-center relative overflow-hidden">
+      <Image
+        src={logoInibic}
+        alt="Logo CDTI"
+        class="w-auto h-[40px] sm:h-[50px] md:h-[55px] object-contain"
+      />
+      <div class="absolute inset-0 bg-gray-950/20 pointer-events-none"></div>
+    </div>
+    <div class="bg-white rounded-lg p-1.5 flex items-center relative overflow-hidden">
+      <Image
+        src={logoJordiGol}
+        alt="Logo CDTI"
+        class="w-auto h-[40px] sm:h-[50px] md:h-[55px] object-contain"
+      />
+      <div class="absolute inset-0 bg-gray-950/20 pointer-events-none"></div>
+    </div>
+    <div class="bg-white rounded-lg p-1.5 flex items-center relative overflow-hidden">
+      <Image
+        src={logoBionova}
+        alt="Logo CDTI"
+        class="w-auto h-[40px] sm:h-[50px] md:h-[55px] object-contain"
+      />
+      <div class="absolute inset-0 bg-gray-950/20 pointer-events-none"></div>
+    </div>
+  </div>

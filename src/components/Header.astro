@@ -42,21 +42,22 @@ const locale: Locale = Astro.locals.locale ?? 'es';
 
   <nav
     id="header-nav"
-    class="hidden lg:flex place-self-center justify-center items-center gap-4 text-lg font-medium transition-all duration-500 origin-center xl:pl-36"
+    class="hidden lg:flex place-self-center justify-center items-center gap-1 text-lg font-medium transition-all duration-500 origin-center xl:pl-36"
   >
     <a
       href="/#hero"
-      class="hover:text-red-500 transition-colors lg:px-4 xl:px-8 py-2"
+      class="relative px-3 xl:px-5 py-2 text-white/80 hover:text-brand-500 transition-colors duration-300 after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-brand-500 after:rounded-full after:transition-all after:duration-300 hover:after:w-3/4"
       >{t(locale, 'nav.home')}</a
     >
     <a
       href="/#aboutus"
-      class="hover:text-red-500 transition-colors lg:px-4 xl:px-8 py-2"
+      class="relative px-3 xl:px-5 py-2 text-white/80 hover:text-brand-500 transition-colors duration-300 after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-brand-500 after:rounded-full after:transition-all after:duration-300 hover:after:w-3/4"
       >{t(locale, 'nav.about')}</a
     >
     <a
       href="/#contact"
-      class="hover:text-red-500 transition-colors lg:px-4 xl:px-8">{t(locale, 'nav.contact')}</a
+      class="relative px-3 xl:px-5 py-2 text-white/80 hover:text-brand-500 transition-colors duration-300 after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-brand-500 after:rounded-full after:transition-all after:duration-300 hover:after:w-3/4"
+      >{t(locale, 'nav.contact')}</a
     >
   </nav>
 
@@ -66,24 +67,39 @@ const locale: Locale = Astro.locals.locale ?? 'es';
   >
     <LanguageSelector />
 
-    <a
-      href="https://redbeat.stackcode.io/#/authentication/signin"
-      class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded text-sm lg:text-base transition-all items-center justify-center"
-    >
-      <span class="hidden lg:inline">{t(locale, 'nav.platform_1')}</span>
-    </a>
-
-    <a
-      href="http://54.37.38.27/"
-      class="border border-red-700 hover:bg-red-700/20 hidden lg:inline-flex px-3 py-2.5 md:px-4 lg:px-5 rounded text-sm lg:text-base transition-all items-center justify-center"
-    >
-      <span class="hidden lg:inline">{t(locale, 'nav.platform_2')}</span>
-    </a>
+    <div class="relative hidden lg:inline-block group z-[200]">
+      <button
+        id="redbeat-btn"
+        class="border border-brand-500 hover:bg-brand-500/20 px-3 py-2.5 md:px-4 lg:px-5 rounded text-sm lg:text-base transition-all items-center inline-flex gap-1.5"
+      >
+        <span>REDBEAT</span>
+        <svg class="w-3 h-3 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      <div
+        id="redbeat-dropdown"
+        class="absolute right-0 top-full mt-1 w-48 rounded-xl border border-white/10 bg-gray-900/95 backdrop-blur-xl shadow-2xl opacity-0 translate-y-[-8px] transition-all duration-200 ease-out"
+      >
+        <a
+          href="https://redbeat.stackcode.io/#/authentication/signin"
+          class="block w-full text-left px-4 py-3.5 transition-colors hover:bg-white/10 first:rounded-t-xl text-base font-semibold"
+        >
+          REDBEAT 1.0
+        </a>
+        <a
+          href="http://54.37.38.27/"
+          class="block w-full text-left px-4 py-3.5 transition-colors hover:bg-white/10 last:rounded-b-xl text-base font-semibold"
+        >
+          REDBEAT 2.0
+        </a>
+      </div>
+    </div>
 
     <Button
       as="a"
       href="/#contact"
-      class="bg-red-700 hover:bg-red-800 px-3 py-2 xs:px-6 xs:py-2.5 rounded-xl transition-all shadow-lg shadow-red-900/20 text-sm xs:text-base"
+      class="bg-brand-500 hover:bg-brand-600 px-3 py-2 xs:px-6 xs:py-2.5 rounded-xl transition-all shadow-lg shadow-brand-800/20 text-sm xs:text-base"
       text={t(locale, 'nav.contact_btn')}
     />
 
@@ -119,22 +135,34 @@ const locale: Locale = Astro.locals.locale ?? 'es';
       href="/#contact"
       class="text-2xl font-semibold border-b border-white/10 pb-4">{t(locale, 'mobile_menu.contact')}</a
     >
-    <a
-      href="https://redbeat.stackcode.io/#/authentication/signin"
-      class="text-2xl font-semibold border-b border-white/10 pb-4"
-    >
-      {t(locale, 'mobile_menu.platform')} <span class="text-xl font-bold text-red-500 pt-4"
-        >REDBEAT 1.0</span
+    <div class="border-b border-white/10 pb-4">
+      <button
+        id="mobile-redbeat-btn"
+        class="text-2xl font-semibold w-full text-left flex items-center justify-between"
       >
-    </a>
-    <a
-      href="http://54.37.38.27/"
-      class="text-2xl font-semibold border-b border-white/10 pb-4"
-    >
-      {t(locale, 'mobile_menu.platform')} <span class="text-xl font-bold text-red-500 pt-4"
-        >REDBEAT 2.0</span
+        {t(locale, 'mobile_menu.platform')}
+        <svg class="w-4 h-4 transition-transform duration-200" id="mobile-redbeat-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      <div
+        id="mobile-redbeat-submenu"
+        class="mt-3 space-y-2 overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out"
       >
-    </a>
+        <a
+          href="https://redbeat.stackcode.io/#/authentication/signin"
+          class="block text-lg font-semibold text-brand-500 pl-4 py-2 hover:bg-white/5 rounded-lg transition-colors"
+        >
+          REDBEAT 1.0
+        </a>
+        <a
+          href="http://54.37.38.27/"
+          class="block text-lg font-semibold text-brand-500 pl-4 py-2 hover:bg-white/5 rounded-lg transition-colors"
+        >
+          REDBEAT 2.0
+        </a>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -158,6 +186,23 @@ const locale: Locale = Astro.locals.locale ?? 'es';
   #main-header.header-hidden {
     top: -200px;
   }
+
+  #redbeat-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #redbeat-dropdown {
+    pointer-events: none;
+  }
+
+  #mobile-redbeat-submenu.open {
+    max-height: 200px;
+    opacity: 1;
+  }
+  #mobile-redbeat-arrow.rotated {
+    transform: rotate(180deg);
+  }
 </style>
 
 <script>
@@ -168,6 +213,42 @@ const locale: Locale = Astro.locals.locale ?? 'es';
     const logo = document.getElementById('header-logo');
     const nav = document.getElementById('header-nav');
     const actions = document.getElementById('header-actions');
+
+    // Redbeat dropdown (desktop)
+    const redbeatBtn = document.getElementById('redbeat-btn');
+    const redbeatDropdown = document.getElementById('redbeat-dropdown');
+    const closeLang = () => {
+      const lb = document.getElementById('lang-dropdown');
+      const lbBtn = document.getElementById('lang-btn');
+      if (lb) lb.classList.remove('show');
+      if (lbBtn) lbBtn.classList.remove('group-open');
+    };
+
+    if (redbeatBtn && redbeatDropdown) {
+      redbeatBtn.onclick = (e) => {
+        e.stopPropagation();
+        closeLang();
+        redbeatDropdown.classList.toggle('show');
+        redbeatBtn.classList.toggle('group-open');
+      };
+      document.addEventListener('click', () => {
+        redbeatDropdown.classList.remove('show');
+        redbeatBtn.classList.remove('group-open');
+      });
+      redbeatDropdown.onclick = (e) => e.stopPropagation();
+    }
+
+    // Redbeat submenu (mobile)
+    const mobileRedbeatBtn = document.getElementById('mobile-redbeat-btn');
+    const mobileRedbeatSub = document.getElementById('mobile-redbeat-submenu');
+    const mobileRedbeatArrow = document.getElementById('mobile-redbeat-arrow');
+    if (mobileRedbeatBtn && mobileRedbeatSub) {
+      mobileRedbeatBtn.onclick = (e) => {
+        e.stopPropagation();
+        mobileRedbeatSub.classList.toggle('open');
+        mobileRedbeatArrow?.classList.toggle('rotated');
+      };
+    }
 
     // Lógica del Menú Móvil
     if (menuBtn && mobileMenu) {
