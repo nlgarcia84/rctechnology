@@ -53,10 +53,7 @@ export const server = {
       ]);
 
       if (dbError) {
-        throw new ActionError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: dbError.message,
-        });
+        console.error('Error al guardar en Supabase:', dbError.message);
       }
 
       if (import.meta.env.RESEND_API_KEY) {
