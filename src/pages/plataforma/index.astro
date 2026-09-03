@@ -65,8 +65,7 @@ const data = [
           <span class="w-1.5 h-6 bg-brand-500 rounded-full mr-3"></span>
           {t(locale, 'platform.section1_title')}
         </h2>
-        <p>
-          {t(locale, 'platform.section1_text')}
+        <p set:html={t(locale, 'platform.section1_text')}>
         </p>
       </article>
 
@@ -103,8 +102,7 @@ const data = [
           <span class="w-1.5 h-6 bg-brand-500 rounded-full mr-3"></span>
           {t(locale, 'platform.section3_title')}
         </h2>
-        <p>
-          {t(locale, 'platform.section3_text')}
+        <p set:html={t(locale, 'platform.section3_text')}>
         </p>
       </article>
     </div>
